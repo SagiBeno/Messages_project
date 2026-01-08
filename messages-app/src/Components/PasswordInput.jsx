@@ -2,8 +2,7 @@ import { useState } from "react"
 import { TextField, IconButton } from "@radix-ui/themes";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 
-export default function PasswordInput(props) {
-    const inputName = props?.inputName;
+export default function PasswordInput( { inputName, value, onChange } ) {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleShowPassword = () => {
@@ -20,6 +19,8 @@ export default function PasswordInput(props) {
             mb="3"
             type={showPassword ? "text" : "password"}
             color="tomato"
+            value={value}
+            onChange={onChange}
         >
             <TextField.Slot side="right">
                 <IconButton

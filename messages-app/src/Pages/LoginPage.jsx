@@ -8,6 +8,10 @@ export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [validData, setValidData] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [inpudData, setInputData] = useState({
+        emailOrUsername: "",
+        password: ""
+    });
 
     return (
         <Container size="2">
@@ -80,6 +84,8 @@ export default function LoginPage() {
                         mt="2"
                         mb="3"
                         color="tomato"
+                        value={inpudData.emailOrUsername}
+                        onChange={(e) => setInputData({ ...inpudData, emailOrUsername: e.target.value })}
                     />
 
                     <Text
@@ -93,7 +99,11 @@ export default function LoginPage() {
                     >
                         Jelszó
                     </Text>
-                    <PasswordInput inputName="password" />
+                    <PasswordInput
+                        inputName="password"
+                        value={inpudData.password}
+                        onChange={(e) => setInputData({ ...inpudData, password: e.target.value })}
+                    />
 
                     {
                         !validData
@@ -143,7 +153,7 @@ export default function LoginPage() {
                             </Button>
                     }
 
-                    <Box my="5" style={{ position: "relative", textAlign: "center", opacity: 0.6, userSelect: 'none', cursor: 'default' }} color="pink">
+                    <Box my="5" style={{ position: "relative", textAlign: "center", opacity: 0.8, userSelect: 'none', cursor: 'default' }} color="pink">
                         <Box
                             style={{
                                 height: 1,
@@ -167,6 +177,30 @@ export default function LoginPage() {
                         </Text>
                     </Box>
 
+                    <Text
+                        as="p"
+                        size="3"
+                        align="center"
+                    >
+                        Nincs fiókja? Regisztráljon
+                    </Text>
+
+
+                    <Button
+                        variant="outline"
+                        mt="4"
+                        mb="3"
+                        size="3"
+                        radius="full"
+                        className="loginButton"
+                        color="pink"
+                        style={{
+                            userSelect: 'none',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        Regisztráció
+                    </Button>
 
                 </Card>
             </Flex>
