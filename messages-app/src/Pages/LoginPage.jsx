@@ -13,7 +13,11 @@ export default function LoginPage() {
         password: ""
     });
 
-
+    const handleLogin = (e) => {
+        e.preventDefault();
+        // Login logic here
+        console.log("Login attempt with:", inpudData);
+    }
 
     return (
         <Container size="2">
@@ -88,13 +92,17 @@ export default function LoginPage() {
                         color="tomato"
                         value={inpudData.emailOrUsername}
                         required
-                        onChange={(e) => setInputData({ ...inpudData, emailOrUsername: e.target.value })}
+                        onChange={(e) => {
+                            if (e.target.value.includes(' ')) return;
+                            else setInputData({ ...inpudData, emailOrUsername: e.target.value })
+                        }}
                     />
 
                     <Text
                         as="label"
                         htmlFor="password"
                         mx='1'
+                        mb='1'
                         style={{
                             userSelect: 'none',
                             cursor: 'default'
@@ -105,7 +113,10 @@ export default function LoginPage() {
                     <PasswordInput
                         inputName="password"
                         value={inpudData.password}
-                        onChange={(e) => setInputData({ ...inpudData, password: e.target.value })}
+                        onChange={(e) => {
+                            if (e.target.value.includes(' ')) return;
+                            else setInputData({ ...inpudData, password: e.target.value })
+                        }}
                     />
 
                     {
@@ -141,6 +152,7 @@ export default function LoginPage() {
                                         cursor: 'pointer'
                                     }}
                                     color="pink"
+                                    onClick={(e) => handleLogin(e)}
                                 >
                                     Bejelentkezés
                                 </Button>
