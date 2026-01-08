@@ -20,7 +20,7 @@ export default function LoginPage() {
     }
 
     return (
-        <Container size="2">
+        <Container size="2" style={{padding: '0 10px'}}>
             <Flex
                 align="center"
                 justify="center"
@@ -102,7 +102,6 @@ export default function LoginPage() {
                         as="label"
                         htmlFor="password"
                         mx='1'
-                        mb='1'
                         style={{
                             userSelect: 'none',
                             cursor: 'default'
