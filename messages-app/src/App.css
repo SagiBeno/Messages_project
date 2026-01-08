@@ -1,0 +1,9 @@
+.loginButton {
+    width: 100% !important;
+    color: #C36192 !important;
+}
+
+.loginButton:hover {
+    background: linear-gradient(45deg, #B55586, #EF652C) !important;
+    color: white !important;
+}

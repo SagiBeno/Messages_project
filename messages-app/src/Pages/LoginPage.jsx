@@ -1,0 +1,175 @@
+import { useState } from "react";
+import { Container, Box, Card, TextField, IconButton, Text, Avatar, Flex, Separator, Button, Spinner } from "@radix-ui/themes";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+
+import PasswordInput from "../Components/PasswordInput";
+
+export default function LoginPage() {
+    const [showPassword, setShowPassword] = useState(false);
+    const [validData, setValidData] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    return (
+        <Container size="2">
+            <Flex
+                align="center"
+                justify="center"
+                style={{
+                    minHeight: '100vh',
+                    userSelect: 'none',
+                    cursor: 'default'
+                }}
+            >
+                <Card
+                    style={{
+                        maxWidth: '400px',
+                        width: '100%',
+                        padding: '20px',
+                        userSelect: 'none',
+                        cursor: 'default'
+                    }}>
+
+                    <Flex align="center"
+                        justify="center"
+                        mb="2"
+                        mt='2'>
+                        <Avatar
+                            src="icon.png"
+                            size='5'
+                            title="Mesaj icon"
+                            alt="Mesaj icon"
+                        />
+                    </Flex>
+
+
+                    <Text
+                        as="p"
+                        size="6"
+                        weight="bold"
+                        align="center"
+                        mb="1"
+                        style={{
+                            userSelect: 'none',
+                            cursor: 'default'
+                        }}
+                    >
+                        Bejelenzkezés
+                    </Text>
+                    <Text
+                        as='p'
+                        size='3'
+                        align='center'
+                        mb='4'
+                        style={{
+                            opacity: '0.6',
+                            userSelect: 'none',
+                            cursor: 'default'
+                        }}
+                    >
+                        Jelentkezzen be a fiókjába!
+                    </Text>
+
+                    <Text as="label" htmlFor="emailOrUsername" mx='1'>
+                        Email vagy felhasználónév
+                    </Text>
+                    <TextField.Root
+                        radius="full"
+                        placeholder="Email vagy felhasználónév"
+                        size="3" name="emailOrUsername"
+                        id="emailOrUsername"
+                        mt="2"
+                        mb="3"
+                        color="tomato"
+                    />
+
+                    <Text
+                        as="label"
+                        htmlFor="password"
+                        mx='1'
+                        style={{
+                            userSelect: 'none',
+                            cursor: 'default'
+                        }}
+                    >
+                        Jelszó
+                    </Text>
+                    <PasswordInput inputName="password" />
+
+                    {
+                        !validData
+                            ?
+                            loading
+                                ?
+                                <Button
+                                    variant="outline"
+                                    mt="4"
+                                    mb="3"
+                                    size="3"
+                                    radius="full"
+                                    className="loginButton"
+                                    disabled
+                                    color="pink"
+                                >
+                                    <Spinner loading />
+                                    Bejelentkezés
+                                </Button>
+                                :
+                                <Button
+                                    variant="outline"
+                                    mt="4"
+                                    mb="3"
+                                    size="3"
+                                    radius="full"
+                                    className="loginButton"
+                                    style={{
+                                        userSelect: 'none',
+                                        cursor: 'pointer'
+                                    }}
+                                    color="pink"
+                                >
+                                    Bejelentkezés
+                                </Button>
+                            :
+                            <Button
+                                variant="outline"
+                                mt="4"
+                                mb="3"
+                                size="3"
+                                radius="full"
+                                className="loginButton"
+                                disabled
+                                color="pink">
+                                Bejelentkezés
+                            </Button>
+                    }
+
+                    <Box my="5" style={{ position: "relative", textAlign: "center", opacity: 0.6, userSelect: 'none', cursor: 'default' }} color="pink">
+                        <Box
+                            style={{
+                                height: 1,
+                                backgroundColor: "#C36192",
+                            }}
+                        />
+                        <Text
+                            size="2"
+                            color="gray"
+                            style={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                                background: "white",
+                                padding: "0 8px",
+                                color: "#C36192"
+                            }}
+                        >
+                            vagy
+                        </Text>
+                    </Box>
+
+
+                </Card>
+            </Flex>
+        </Container>
+    )
+}
