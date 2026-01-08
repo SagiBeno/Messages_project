@@ -13,6 +13,8 @@ export default function LoginPage() {
         password: ""
     });
 
+
+
     return (
         <Container size="2">
             <Flex
@@ -85,6 +87,7 @@ export default function LoginPage() {
                         mb="3"
                         color="tomato"
                         value={inpudData.emailOrUsername}
+                        required
                         onChange={(e) => setInputData({ ...inpudData, emailOrUsername: e.target.value })}
                     />
 
@@ -106,7 +109,7 @@ export default function LoginPage() {
                     />
 
                     {
-                        !validData
+                        inpudData.emailOrUsername && inpudData.password && inpudData.password.length >= 8
                             ?
                             loading
                                 ?
@@ -116,9 +119,11 @@ export default function LoginPage() {
                                     mb="3"
                                     size="3"
                                     radius="full"
-                                    className="loginButton"
                                     disabled
                                     color="pink"
+                                    style={{
+                                        width: '100%'
+                                    }}
                                 >
                                     <Spinner loading />
                                     Bejelentkezés
@@ -146,9 +151,12 @@ export default function LoginPage() {
                                 mb="3"
                                 size="3"
                                 radius="full"
-                                className="loginButton"
+                                color="pink"
                                 disabled
-                                color="pink">
+                                style={{
+                                    width: '100%'
+                                }}
+                            >
                                 Bejelentkezés
                             </Button>
                     }
