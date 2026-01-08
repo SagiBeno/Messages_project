@@ -63,7 +63,7 @@ export default function LoginPage() {
                             cursor: 'default'
                         }}
                     >
-                        Bejelenzkezés
+                        Bejelentkezés
                     </Text>
                     <Text
                         as='p'
