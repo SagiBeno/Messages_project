@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Container, Box, Card, TextField, IconButton, Text, Avatar, Flex, Separator, Button, Spinner } from "@radix-ui/themes";
-
+import { useNavigate } from "react-router-dom";
 import PasswordInput from "../Components/PasswordInput";
 
-export default function RegisterPage( { loading, setLoading } ) {
+export default function RegisterPage( { loading, setLoading, setToastData, toastData } ) {
+    let navigate = useNavigate();
     const [inpudData, setInputData] = useState({
         email: "",
         username: "",
@@ -49,7 +50,8 @@ export default function RegisterPage( { loading, setLoading } ) {
                 const res = await resJSON.json();
                 
                 if (resJSON.status === 201) {
-                    console.log('User registered successfully:', res);
+                    setToastData( { ...toastData, open: true, title: 'Sikeres regisztráció!', description: 'Most már bejelentkezhet a fiókjába.', isError: false } );
+                    navigate('/login');
                 } else if (resJSON.status === 409) {
                     
                     if (res.error.includes('email and username')) {
@@ -61,12 +63,11 @@ export default function RegisterPage( { loading, setLoading } ) {
                         setExistingEmail(true);
                     }
                 } else {
-                    console.error('Registration failed:', res);
+                    setToastData( { ...toastData, open: true, title: 'Hiba történt!', description: 'Hiba történt a regisztráció során, kérjük próbálja meg újra.', isError: true } );
                 }
+
             } )
-            .catch((error) => {
-                console.error('Error:', error);
-            })
+            .catch(console.warn)
             .finally(() => {
                 setLoading(false);
             });

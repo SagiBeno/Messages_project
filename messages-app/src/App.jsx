@@ -13,6 +13,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<LoginPage loading={loading} setLoading={setLoading} />} />
+        <Route path='/login' element={<LoginPage loading={loading} setLoading={setLoading} />} />
         <Route path='/register' element={<RegisterPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} />} />
       </Routes>
 
