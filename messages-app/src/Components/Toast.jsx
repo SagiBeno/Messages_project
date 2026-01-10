@@ -4,8 +4,8 @@ import { Card, Text, Button, Flex } from "@radix-ui/themes";
 export default function AppToast({ toastData, setToastData }) {
 
     return (
-        <Toast.Provider swipeDirection="up" duration={6000}>
-            <Toast.Root open={toastData.open} onOpenChange={() => setToastData({ ...toastData, open: false })} asChild>
+        <Toast.Provider swipeDirection="up" duration={5000}>
+            <Toast.Root open={toastData.open} onOpenChange={() => setToastData({ ...toastData, open: false })} asChild className="toastStyle">
                 <Card
                     style={{
                         position: "fixed",
