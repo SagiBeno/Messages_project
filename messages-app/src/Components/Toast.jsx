@@ -1,5 +1,7 @@
 import * as Toast from "@radix-ui/react-toast";
-import { Card, Text, Button, Flex } from "@radix-ui/themes";
+import { Card, Text, Button, Flex, IconButton } from "@radix-ui/themes";
+import { Cross2Icon } from "@radix-ui/react-icons";
+
 
 export default function AppToast({ toastData, setToastData }) {
 
@@ -18,7 +20,18 @@ export default function AppToast({ toastData, setToastData }) {
                     }}
                 >
                     <Flex direction="column" gap="2">
-                        <Text weight="bold" color={toastData.isError ? "red" : "green"}>{toastData.title}</Text>
+                        <Flex direction="row" gap="2">
+                            <Text weight="bold" color={toastData.isError ? "red" : "green"}>{toastData.title}</Text>
+
+                            <Flex justify="end" style={{ flex: 1 }}>
+                                <Toast.Close asChild>
+                                    <IconButton variant="ghost" color={toastData.isError ? "red" : "green"}>
+                                        <Cross2Icon width="20" height="20" />
+                                    </IconButton>
+                                </Toast.Close>
+                            </Flex>
+                        </Flex>
+
 
                         {toastData.description && (
                             <Text size="2" color="gray">
@@ -26,13 +39,7 @@ export default function AppToast({ toastData, setToastData }) {
                             </Text>
                         )}
 
-                        <Flex justify="end" mt="2">
-                            <Toast.Close asChild>
-                                <Button size="1" variant="soft" color={toastData.isError ? "red" : "green"}>
-                                    Ok
-                                </Button>
-                            </Toast.Close>
-                        </Flex>
+
                     </Flex>
                 </Card>
             </Toast.Root>
