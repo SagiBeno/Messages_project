@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Container, Box, Card, TextField, IconButton, Text, Avatar, Flex, Separator, Button, Spinner } from "@radix-ui/themes";
-import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { Container, Box, Card, TextField, Text, Avatar, Flex, Button, Spinner } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 
 import PasswordInput from "../Components/PasswordInput";
