@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container, Box, Card, TextField, IconButton, Text, Avatar, Flex, Separator, Button, Spinner } from "@radix-ui/themes";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { useNavigate } from "react-router-dom";
 
 import PasswordInput from "../Components/PasswordInput";
 
@@ -10,6 +11,8 @@ export default function LoginPage() {
         emailOrUsername: "",
         password: ""
     });
+
+    let navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -117,7 +120,7 @@ export default function LoginPage() {
                     />
 
                     {
-                        inpudData.emailOrUsername && inpudData.password && inpudData.password.length >= 8
+                        inpudData.emailOrUsername.length > 0 && inpudData.password.length >= 8
                             ?
                             loading
                                 ?
@@ -214,6 +217,9 @@ export default function LoginPage() {
                         style={{
                             userSelect: 'none',
                             cursor: 'pointer'
+                        }}
+                        onClick={() => {
+                            navigate('/register');
                         }}
                     >
                         Regisztráció
