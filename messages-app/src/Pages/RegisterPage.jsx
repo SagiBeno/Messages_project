@@ -3,16 +3,18 @@ import { Container, Box, Card, TextField, IconButton, Text, Avatar, Flex, Separa
 
 import PasswordInput from "../Components/PasswordInput";
 
-export default function LoginPage() {
-    const [loading, setLoading] = useState(false);
+export default function RegisterPage( { loading, setLoading } ) {
     const [inpudData, setInputData] = useState({
         email: "",
         username: "",
         password: "",
         confirmPassword: "",
-        fullName: ""
+        fullName: "",
+        type: "user"
     });
-    const [validEmail , setValidEmail] = useState(true);
+    const [validEmail, setValidEmail] = useState(true);
+    const [existingEmail, setExistingEmail] = useState(false);
+    const [existingUsername, setExistingUsername] = useState(false);
 
     const isValidEmail = (email) => {
         if (!email) return false;
@@ -30,11 +32,44 @@ export default function LoginPage() {
         return true;
     }
 
-
     const handleRegistration = (e) => {
         e.preventDefault();
-        // Registration logic here
-        console.log("Registration attempt with:", inpudData);
+        setLoading(true);
+
+        setExistingEmail(false);
+        setExistingUsername(false);
+
+        fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(inpudData)
+        })
+            .then( async (resJSON) => {
+
+                const res = await resJSON.json();
+                
+                if (resJSON.status === 201) {
+                    console.log('User registered successfully:', res);
+                } else if (resJSON.status === 409) {
+                    
+                    if (res.error.includes('email and username')) {
+                        setExistingEmail(true);
+                        setExistingUsername(true);
+                    } else if (res.error.includes('username')) {
+                        setExistingUsername(true);
+                    } else if (res.error.includes('email')) {
+                        setExistingEmail(true);
+                    }
+                } else {
+                    console.error('Registration failed:', res);
+                }
+            } )
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     return (
@@ -137,6 +172,23 @@ export default function LoginPage() {
                         </Text>
                     }
 
+                    {
+                        existingEmail &&
+                        <Text
+                            as="p"
+                            size='2'
+                            mx='1'
+                            style={{
+                                userSelect: 'none',
+                                cursor: 'default'
+                            }}
+                            align="center"
+                            color="tomato"
+                        >
+                            Már létezik felhasználó ezzel az email címmel!
+                        </Text>
+                    }
+
                     <Text as="label" htmlFor="usernameInput" mx='1'>
                         Felhasználónév
                     </Text>
@@ -157,6 +209,23 @@ export default function LoginPage() {
                             else setInputData({ ...inpudData, username: e.target.value })
                         }}
                     />
+
+                    {
+                        existingUsername &&
+                        <Text
+                            as="p"
+                            size='2'
+                            mx='1'
+                            style={{
+                                userSelect: 'none',
+                                cursor: 'default'
+                            }}
+                            align="center"
+                            color="tomato"
+                        >
+                            A felhasználónév már foglalt!
+                        </Text>
+                    }
 
                     <Text as="label" htmlFor="fullNameInput" mx='1'>
                         Teljes név
