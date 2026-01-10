@@ -5,8 +5,6 @@ import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import PasswordInput from "../Components/PasswordInput";
 
 export default function LoginPage() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [validData, setValidData] = useState(false);
     const [loading, setLoading] = useState(false);
     const [inpudData, setInputData] = useState({
         emailOrUsername: "",
