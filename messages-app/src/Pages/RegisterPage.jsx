@@ -43,7 +43,7 @@ export default function RegisterPage( { loading, setLoading, setToastData, toast
         fetch('/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(inpudData)
+            body: JSON.stringify({...inpudData})
         })
             .then( async (resJSON) => {
 
