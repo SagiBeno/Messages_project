@@ -3,11 +3,12 @@ import './App.css';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import AppToast from './Components/Toast';
+import ChatsPage from './Pages/ChatsPage';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [toastData, setToastData] = useState( { open: false, title: '', description: '', isError: true } );
+  const [toastData, setToastData] = useState( { open: false, title: '', description: '', isError: false } );
   const [userData, setUserData] = useState( { isLoggedIn: false} );
 
   useEffect( () => {
@@ -22,9 +23,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<LoginPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} userData={userData} setUserData={setUserData} />} />
-        <Route path='/login' element={<LoginPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} userData={userData} setUserData={setUserData} />} />
-        <Route path='/register' element={<RegisterPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} />} />
+        <Route path='/' element={ userData.isLoggedIn ? <ChatsPage /> : <LoginPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} userData={userData} setUserData={setUserData} /> } />
+        { !userData.isLoggedIn && <Route path='/register' element={<RegisterPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} />} /> }
       </Routes>
 
       <AppToast

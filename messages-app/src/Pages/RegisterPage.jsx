@@ -51,7 +51,7 @@ export default function RegisterPage( { loading, setLoading, setToastData, toast
                 
                 if (resJSON.status === 201) {
                     setToastData( { ...toastData, open: true, title: 'Sikeres regisztráció!', description: 'Most már bejelentkezhet a fiókjába.', isError: false } );
-                    navigate('/login');
+                    navigate('/');
                 } else if (resJSON.status === 409) {
                     
                     if (res.error.includes('email and username')) {
