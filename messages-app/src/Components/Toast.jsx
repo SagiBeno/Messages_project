@@ -3,7 +3,7 @@ import { Card, Text, Button, Flex } from "@radix-ui/themes";
 
 export default function AppToast({ open, onOpenChange, title, description }) {
     return (
-        <Toast.Provider swipeDirection="right">
+        <Toast.Provider swipeDirection="up">
             <Toast.Root open={open} onOpenChange={() => onOpenChange(false)} asChild>
                 <Card
                     style={{
