@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Container, Box, Card, TextField, IconButton, Text, Avatar, Flex, Separator, Button, Spinner } from "@radix-ui/themes";
-import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 
 import PasswordInput from "../Components/PasswordInput";
 
 export default function LoginPage() {
-    const [validData, setValidData] = useState(false);
     const [loading, setLoading] = useState(false);
     const [inpudData, setInputData] = useState({
         email: "",
@@ -14,15 +12,33 @@ export default function LoginPage() {
         confirmPassword: "",
         fullName: ""
     });
+    const [validEmail , setValidEmail] = useState(true);
 
-    const handleLogin = (e) => {
+    const isValidEmail = (email) => {
+        if (!email) return false;
+        if (email.includes(' ') || !email.includes('@')) return false;
+
+        const emailparts = email.split('@');
+
+        if (emailparts.length != 2 || emailparts[1].split('.')[1]?.length < 2) return false;
+
+        if (!emailparts[0] || !emailparts[1] || !emailparts[1].includes('.')) return false;
+
+        const dotIdx = emailparts[1].lastIndexOf('.');
+        if (dotIdx === 0 || dotIdx === (emailparts[1].length - 1)) return false;
+
+        return true;
+    }
+
+
+    const handleRegistration = (e) => {
         e.preventDefault();
-        // Login logic here
-        console.log("Login attempt with:", inpudData);
+        // Registration logic here
+        console.log("Registration attempt with:", inpudData);
     }
 
     return (
-        <Container size="2" style={{padding: '0 10px'}}>
+        <Container size="2" style={{ padding: '0 10px' }}>
             <Flex
                 align="center"
                 justify="center"
@@ -38,7 +54,8 @@ export default function LoginPage() {
                         width: '100%',
                         padding: '20px',
                         userSelect: 'none',
-                        cursor: 'default'
+                        cursor: 'default',
+                        margin: '10px'
                     }}>
 
                     <Flex align="center"
@@ -96,9 +113,29 @@ export default function LoginPage() {
                         required
                         onChange={(e) => {
                             if (e.target.value.includes(' ')) return;
-                            else setInputData({ ...inpudData, email: e.target.value })
+                            else {
+                                setInputData({ ...inpudData, email: e.target.value })
+                                setValidEmail(isValidEmail(e.target.value));
+                            }
                         }}
                     />
+
+                    {
+                        !validEmail &&
+                        <Text
+                            as="p"
+                            size='2'
+                            mx='1'
+                            style={{
+                                userSelect: 'none',
+                                cursor: 'default'
+                            }}
+                            align="center"
+                            color="tomato"
+                        >
+                            Az email formátum nem érvényes!
+                        </Text>
+                    }
 
                     <Text as="label" htmlFor="usernameInput" mx='1'>
                         Felhasználónév
@@ -107,7 +144,8 @@ export default function LoginPage() {
                         type="text"
                         radius="full"
                         placeholder="Felhasználónév"
-                        size="3" name="usernameInput"
+                        size="3"
+                        name="usernameInput"
                         id="usernameInput"
                         mt="2"
                         mb="3"
@@ -120,24 +158,22 @@ export default function LoginPage() {
                         }}
                     />
 
-                     <Text as="label" htmlFor="usernameInput" mx='1'>
+                    <Text as="label" htmlFor="fullNameInput" mx='1'>
                         Teljes név
                     </Text>
                     <TextField.Root
                         type="text"
                         radius="full"
                         placeholder="Minta János"
-                        size="3" name="fullNameInput"
+                        size="3"
+                        name="fullNameInput"
                         id="fullNameInput"
                         mt="2"
                         mb="3"
                         color="tomato"
                         value={inpudData.fullName}
                         required
-                        onChange={(e) => {
-                            if (e.target.value.includes(' ')) return;
-                            else setInputData({ ...inpudData, fullName: e.target.value })
-                        }}
+                        onChange={(e) => setInputData({ ...inpudData, fullName: e.target.value })}
                     />
 
                     <Text
@@ -162,26 +198,61 @@ export default function LoginPage() {
 
                     <Text
                         as="label"
-                        htmlFor="passwordComfirm"
+                        htmlFor="confirmPassword"
                         mx='1'
                         style={{
                             userSelect: 'none',
                             cursor: 'default'
                         }}
                     >
-                        Jelszó megerosítése
+                        Jelszó megerősítése
                     </Text>
                     <PasswordInput
-                        inputName="passwordComfirm"
-                        value={inpudData.passwordComfirm}
+                        inputName="confirmPassword"
+                        value={inpudData.confirmPassword}
                         onChange={(e) => {
                             if (e.target.value.includes(' ')) return;
-                            else setInputData({ ...inpudData, passwordComfirm: e.target.value })
+                            else setInputData({ ...inpudData, confirmPassword: e.target.value })
                         }}
                     />
 
                     {
-                        inpudData.emailOrUsername && inpudData.password && inpudData.password.length >= 8 && inpudData.password === inpudData.passwordComfirm
+                        inpudData.password.length < 8 &&
+                        <Text
+                            as="p"
+                            size='2'
+                            mx='1'
+                            style={{
+                                userSelect: 'none',
+                                cursor: 'default'
+                            }}
+                            align="center"
+                            color="tomato"
+                        >
+                            A jelszónak legalább 8 karakter hosszúnak kell lennie!
+                        </Text>
+                    }
+
+                    {
+                        inpudData.password !== inpudData.confirmPassword &&
+                        <Text
+                            as="p"
+                            size='2'
+                            mx='1'
+                            style={{
+                                userSelect: 'none',
+                                cursor: 'default'
+                            }}
+                            align="center"
+                            color="tomato"
+                        >
+                            A jelszavak nem egyeznek meg!
+                        </Text>
+                    }
+
+
+                    {
+                        validEmail && inpudData.email && inpudData.password.length >= 8 && inpudData.password === inpudData.confirmPassword
                             ?
                             loading
                                 ?
@@ -198,7 +269,7 @@ export default function LoginPage() {
                                     }}
                                 >
                                     <Spinner loading />
-                                    Bejelentkezés
+                                    Regisztráció
                                 </Button>
                                 :
                                 <Button
@@ -213,9 +284,9 @@ export default function LoginPage() {
                                         cursor: 'pointer'
                                     }}
                                     color="pink"
-                                    onClick={(e) => handleLogin(e)}
+                                    onClick={(e) => handleRegistration(e)}
                                 >
-                                    Bejelentkezés
+                                    Regisztráció
                                 </Button>
                             :
                             <Button
@@ -230,7 +301,7 @@ export default function LoginPage() {
                                     width: '100%'
                                 }}
                             >
-                                Bejelentkezés
+                                Regisztráció
                             </Button>
                     }
 
@@ -263,7 +334,7 @@ export default function LoginPage() {
                         size="3"
                         align="center"
                     >
-                        Nincs fiókja? Regisztráljon
+                        Van már fiókja? Jeletezzen be
                     </Text>
 
 
@@ -280,7 +351,7 @@ export default function LoginPage() {
                             cursor: 'pointer'
                         }}
                     >
-                        Regisztráció
+                        Bejelentkezés
                     </Button>
 
                 </Card>
