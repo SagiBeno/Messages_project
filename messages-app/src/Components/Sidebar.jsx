@@ -1,6 +1,17 @@
 import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar } from "@radix-ui/themes";
+import TabsComponent from "./TabsComponent";
+import { useState } from "react";
 
 export default function Sidebar() {
+    const [tabsOptions, setTabsOptions] = useState(
+        {
+            chats: 'Csevegések',
+            friends: 'Ismerősök',
+            search: 'Keresés'
+        }
+    );
+    const [activeTab, setActiveTab] = useState("chats");
+
     return (
         <Card style={{ height: "100%", borderRadius: 0, minWidth: '300px' }}>
             <Flex direction="column" style={{ height: "100%" }} gap="3">
@@ -18,20 +29,7 @@ export default function Sidebar() {
                     <Heading as="h1" ml='1'>Messaj</Heading>
                 </Flex>
 
-                <Tabs.Root>
-                    <Tabs.List
-                        color='tomato'
-                        style={{
-                            display: "flex",
-                            flexDirection: 'row',
-                            justifyContent: "space-around"
-                        }}
-                    >
-                        <Tabs.Trigger value="chats">Csevegések</Tabs.Trigger>
-                        <Tabs.Trigger value="friends">Ismerősök</Tabs.Trigger>
-                        <Tabs.Trigger value="searchFriends">Keresés</Tabs.Trigger>
-                    </Tabs.List>
-                </Tabs.Root>
+                <TabsComponent options={tabsOptions} activeTab={activeTab} setActiveTab={setActiveTab} />
 
                 <Box style={{ flex: 1, overflow: "hidden" }}>
                     <ScrollArea type="auto" scrollbars="vertical" style={{ height: "100%" }}>
