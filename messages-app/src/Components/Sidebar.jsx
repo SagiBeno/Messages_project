@@ -3,9 +3,10 @@ import TabsComponent from "./TabsComponent";
 import SearchNewFriendComponent from "./SearchNewFriendComponent";
 import SearchCard from "./SearchCard";
 import IncomingRequestsCard from "./IncomingRequestsCard";
+import FriendCardComponent from "./FriendCardComponent";
 import { useState } from "react";
 
-export default function Sidebar({ options, activeTab, setActiveTab, incomingRequests, handleSearchNewFriend, searchData, addFriend, loading, currentUserId }) {
+export default function Sidebar({ options, activeTab, setActiveTab, incomingRequests, friends, handleSearchNewFriend, searchData, addFriend, loading, currentUserId, handleAccept }) {
     return (
         <Flex direction="column" style={{ height: "100%" }}>
             <Box style={{ flex: 1, overflow: "hidden" }} m='5'>
@@ -51,19 +52,32 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                                             :
                                                 <Flex direction='column'>
                                                     {
-                                                        (incomingRequests.length > 0) && (
+                                                        (incomingRequests.length > 0) && 
                                                         <>
                                                             <Text as="p" style={{ opacity: '0.6',userSelect: 'none',cursor: 'default' }} mb='2'>
                                                                 Beérkező kérelmek
                                                             </Text>
 
                                                             {
-                                                                incomingRequests.map( (request, idx) => (<IncomingRequestsCard key={idx} request={request} />))
+                                                                incomingRequests.map( (request, idx) => (<IncomingRequestsCard key={idx} request={request} handleAccept={handleAccept} />))
                                                             }
                                                         </>
-                                                    )}
+                                                    }
 
-                                                    
+                                                    {
+                                                        (friends.length > 0) && 
+                                                        <>
+                                                            <Text as="p" style={{ opacity: '0.6',userSelect: 'none',cursor: 'default' }} mb='2'>
+                                                                Ismerősök
+                                                            </Text>
+
+                                                            {
+                                                                friends.map( (friend, idx) => (<FriendCardComponent key={idx} friend={friend} />))
+                                                            }
+                                                        </>
+                                                    }
+
+
                                                     
                                                 </Flex>
                                     }
