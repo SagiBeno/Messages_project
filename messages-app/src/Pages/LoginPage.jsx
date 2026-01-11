@@ -27,6 +27,7 @@ export default function LoginPage( { loading, setLoading, toastData, setToastDat
                 const res = await resJSON.json();
                 if (resJSON.status === 200) {
                     setToastData( { open: true, title: 'Sikeres bejelentkezés', description: 'Sikeresen bejelentkezett a fiókjába.', isError: false } );
+                    navigate('/')
                     localStorage.setItem('userData', JSON.stringify({  ...res.user, isLoggedIn: true }));
                 } else if (resJSON.status === 401) {
                     setToastData( { open: true, title: 'Hibás adatok', description: 'Helytelen bejelentkezési adatok.', isError: true } );
