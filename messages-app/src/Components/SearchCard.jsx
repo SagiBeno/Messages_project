@@ -4,7 +4,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 export default function SearchCard( { user, currentUserId, addFriend } ) {
 
     return (
-        <Card mb='2' >
+        <Card mb='2' style={{ userSelect: 'none' }} >
             <Flex gap="3" align="center" direction="row" justify='between'>
 			    <Avatar
 			    	size="3"
