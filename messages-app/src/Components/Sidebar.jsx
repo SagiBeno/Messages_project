@@ -1,9 +1,10 @@
-import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar, TextField } from "@radix-ui/themes";
+import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar, TextField, Spinner } from "@radix-ui/themes";
 import TabsComponent from "./TabsComponent";
 import SearchNewFriendComponent from "./SearchNewFriendComponent";
+import ChatCardComponent from "./ChatCardComponent";
 import { useState } from "react";
 
-export default function Sidebar({ options, activeTab, setActiveTab, handleSearchNewFriend }) {
+export default function Sidebar({ options, activeTab, setActiveTab, handleSearchNewFriend, cardsData, addFriend, loading, currentUserId }) {
 
     return (
         <Flex direction="column" style={{ height: "100%" }}>
@@ -48,13 +49,30 @@ export default function Sidebar({ options, activeTab, setActiveTab, handleSearch
                             </Box>
                         }
 
-                         {
+                        {
                             activeTab === 'search' &&
                             <Box style={{ flex: 1, overflow: "hidden" }}>
                                 <ScrollArea type="auto" scrollbars="vertical" style={{ height: "100%", userSelect: 'none', cursor: 'default' }}>
-                                    <Box pt="2" style={{ userSelect: 'none', cursor: 'default' }}>
+                                    <Box pt="2" style={{ userSelect: 'none', cursor: 'default' }} mb='2'>
                                        <SearchNewFriendComponent handleSearchNewFriend={handleSearchNewFriend} />
                                     </Box>
+
+                                    {
+                                        loading &&
+                                        <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}>
+                                            <Spinner size='3' />
+                                        </Flex>
+                                    }
+
+                                    {
+                                        cardsData.length > 0
+                                        &&
+                                        <Flex direction='column'>
+                                            {
+                                                cardsData.map( (user, idx) => <ChatCardComponent key={idx} user={user} addFriend={addFriend} currentUserId={currentUserId} /> )
+                                            }
+                                        </Flex>
+                                    }
                                 </ScrollArea>
                             </Box>
                         }
