@@ -19,14 +19,18 @@ export default async function getFriends (req, res) {
         const result = await pool.query(
             `
                 SELECT
-                    r.id AS relationship_id,
                     u.user_id,
                     u.username,
                     u.full_name
                 FROM relationships r
-                JOIN users u ON u.user_id = r.requester_id
-                WHERE r.addressee_id = $1
-                ORDER BY r.created_at DESC
+                JOIN users u
+                    ON (
+                            (r.requester_id = $1 AND u.user_id = r.addressee_id)
+                        OR 
+                            (r.addressee_id = $1 AND u.user_id = r.requester_id)
+                    )
+                WHERE r.accepted = true
+                ORDER BY r.accepted_at
             `
             , [userId]
         );
