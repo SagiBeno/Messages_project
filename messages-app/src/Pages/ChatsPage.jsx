@@ -21,8 +21,24 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
   useEffect( () => {
     if (activeTab === 'friends') {
       handleLoadIncomingRequests();
+      handleLoadFriend();
     }
   }, [activeTab]);
+
+  const handleLoadFriend = () => {
+    setLoading(true);
+
+    fetch(`/api/get_friends?userId=${userData.id}`)
+      .then( async (resJSON) => {
+        const res = await resJSON.json();
+        setFriends(res);
+      })
+      .catch( (err) => {
+        console.warn(err);
+        setToastData( { open: true, title: 'Sikertelen lekérdezés', description: 'Az adatok lekérése során hiba történt, kérjük próbálja meg újra.', isError: true } );
+      })
+      .finally(() => setLoading(false));
+  }
 
   const handleAccept = (request) => {
     
