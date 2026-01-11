@@ -1,9 +1,7 @@
 import { Card, Avatar, Box, Text, Flex, Button } from "@radix-ui/themes";
 import { PlusIcon } from "@radix-ui/react-icons";
 
-export default function ChatCardComponent( { user, currentUserId, addFriend } ) {
-
-    console.log(user, currentUserId)
+export default function SearchCard( { user, currentUserId, addFriend } ) {
 
     return (
         <Card>
@@ -45,7 +43,7 @@ export default function ChatCardComponent( { user, currentUserId, addFriend } ) 
 
                     {
                         (user.accepted === false && user.addressee_id === currentUserId) &&
-                        <Button radius='full' disabled style={{ cursor: 'default', background: 'linear-gradient(45deg, #B55586, #EF652C)', color: 'white', opacity: '0.5' }} p='2' >
+                        <Button radius='full' disabled style={{ cursor: 'default', background: 'linear-gradient(45deg, #B55586, #EF652C)', color: 'white', opacity: '0.5', height: '40px' }}>
                             Kérelem érkezett
                         </Button> 
                     }
@@ -57,8 +55,7 @@ export default function ChatCardComponent( { user, currentUserId, addFriend } ) 
                         </Button> 
                     }
 			    </Box>
-		</Flex>
-
+		    </Flex>
         </Card>
     )
 

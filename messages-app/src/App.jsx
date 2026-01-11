@@ -25,7 +25,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={ <ChatsPage loading={loading} setLoading={setLoading} userData={userData} /> } />
+        <Route path='/' element={ <ChatsPage loading={loading} setLoading={setLoading} userData={userData} toastData={toastData} setToastData={setToastData} /> } />
         { !userData.isLoggedIn && <Route path='/register' element={<RegisterPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} />} /> }
         { !userData.isLoggedIn && <Route path='/login' element={ <LoginPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} userData={userData} setUserData={setUserData} /> }/> }
       </Routes>

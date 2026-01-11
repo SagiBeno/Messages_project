@@ -1,7 +1,7 @@
 import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar, TextField, Spinner } from "@radix-ui/themes";
 import TabsComponent from "./TabsComponent";
 import SearchNewFriendComponent from "./SearchNewFriendComponent";
-import ChatCardComponent from "./ChatCardComponent";
+import SearchCard from "./SearchCard";
 import { useState } from "react";
 
 export default function Sidebar({ options, activeTab, setActiveTab, handleSearchNewFriend, cardsData, addFriend, loading, currentUserId }) {
@@ -69,7 +69,7 @@ export default function Sidebar({ options, activeTab, setActiveTab, handleSearch
                                         &&
                                         <Flex direction='column'>
                                             {
-                                                cardsData.map( (user, idx) => <ChatCardComponent key={idx} user={user} addFriend={addFriend} currentUserId={currentUserId} /> )
+                                                cardsData.map( (user, idx) => <SearchCard key={idx} user={user} addFriend={addFriend} currentUserId={currentUserId} /> )
                                             }
                                         </Flex>
                                     }
