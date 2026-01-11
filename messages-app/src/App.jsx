@@ -7,6 +7,7 @@ import ChatsPage from './Pages/ChatsPage';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 function App() {
+  let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [toastData, setToastData] = useState( { open: false, title: '', description: '', isError: false } );
   const [userData, setUserData] = useState( { isLoggedIn: false} );
@@ -17,14 +18,16 @@ function App() {
       setUserData(storedUserData);
     } else {
       setUserData( { isLoggedIn: false } );
+      navigate('/login')
     }
   }, [] );
 
   return (
     <>
       <Routes>
-        <Route path='/' element={ userData.isLoggedIn ? <ChatsPage loading={loading} setLoading={setLoading} userData={userData} /> : <LoginPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} userData={userData} setUserData={setUserData} /> } />
+        <Route path='/' element={ <ChatsPage loading={loading} setLoading={setLoading} userData={userData} /> } />
         { !userData.isLoggedIn && <Route path='/register' element={<RegisterPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} />} /> }
+        { !userData.isLoggedIn && <Route path='/login' element={ <LoginPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} userData={userData} setUserData={setUserData} /> }/> }
       </Routes>
 
       <AppToast
