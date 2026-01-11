@@ -13,8 +13,31 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
     }
   );
   const [activeTab, setActiveTab] = useState("chats");
-  const [cardsData, setCardsData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const [chat, setChat] = useState([]);
+  const [incomingRequests, setIncomingRequests] = useState([]);
+
+  useEffect( () => {
+    if (activeTab === 'friends') {
+      handleLoadIncomingRequests();
+    }
+  }, [activeTab]);
+
+  const handleLoadIncomingRequests = () => {
+    setLoading(true);
+    fetch(`/api/incoming_requests?userId=${userData.id}`)
+      .then( async (resJSON) => {
+        const res = await resJSON.json();
+        setIncomingRequests(res);
+      })
+      .catch( (err) => {
+        console.warn(err)
+        setToastData( { open: true, title: 'Sikertelen lekérdezés', description: 'Az adatok lekérése során hiba történt, kérjük próbálja meg újra.', isError: true } );
+      })
+      .finally( () => {
+        setLoading(false);
+      });
+  }
 
   const handleSearchNewFriend = (searchText) => {
     
@@ -24,9 +47,12 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
       fetch(`/api/search?q=${encodeURIComponent(searchText.trim())}&userId=${userData.id}`)
         .then( async (resJSON) => {
           const res = await resJSON.json();
-          setCardsData(res);
+          setSearchData(res);
         })
-        .catch(console.warn)
+        .catch( (err) => {
+          console.warn(err)
+          setToastData( { open: true, title: 'Sikertelen lekérdezés', description: 'Az adatok lekérése során hiba történt, kérjük próbálja meg újra.', isError: true } );
+        })
         .finally( () => {
           setLoading(false);
         })
@@ -34,7 +60,7 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
   }
 
   const handleAddFriend = (user) => {
-    setCardsData( (prev) => (
+    setSearchData( (prev) => (
       prev.map( (u) => (
         u.user_id === user.user_id
           ?
@@ -54,10 +80,11 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
     })
       .then( async (resJSON) => {
         const res = await resJSON.json();
-        console.log(res)
       })
       .catch( (err) => {
-        setCardsData( prev => (
+        console.wanr(err);
+
+        setSearchData( prev => (
           prev.map(u => (
             u.user_id === user.user_id
               ?
@@ -86,9 +113,10 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         handleSearchNewFriend={handleSearchNewFriend}
-        cardsData={cardsData}
+        searchData={searchData}
         addFriend={handleAddFriend}
         currentUserId={userData.id}
+        incomingRequests={incomingRequests}
       />
       <ChatComponent chat={chat} />
       
