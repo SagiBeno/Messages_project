@@ -10,14 +10,16 @@ async function getUserByEmail(email) {
 }
 
 export default async function loginHandler (req, res) {
+    const headers = { "Content-Type": "application/json" };
+
     if (req.method !== 'POST') {
-        return new Response(JSON.stringify({ error: "Method Not Allowed" }), { status: 405 });
+        return new Response(JSON.stringify({ error: "Method Not Allowed" }), { status: 405, headers: headers  });
     } else {
         const reqBody = await req.json();
         const emailOrUsername = reqBody?.emailOrUsername;
         const password = reqBody?.password;
          if (!emailOrUsername || !password) {
-            return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+            return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400, headers: headers });
         } else {
             let user;
             if (emailOrUsername.includes('@')) {
@@ -28,15 +30,15 @@ export default async function loginHandler (req, res) {
             }
             
             if (!user) {
-                return new Response(JSON.stringify({ error: "Invalid email/username or password" }), { status: 401 });
+                return new Response(JSON.stringify({ error: "Invalid email/username or password" }), { status: 401, headers: headers });
             }
             
             const passwordMatch = await bcrypt.compare(password, user.password_hash);
             if (!passwordMatch) {
-                return new Response(JSON.stringify({ error: "Invalid email/username or password" }), { status: 401 });
+                return new Response(JSON.stringify({ error: "Invalid email/username or password" }), { status: 401, headers: headers });
             }
 
-            return new Response(JSON.stringify({ message: "Login successful", user: { id: user.user_id, username: user.username, email: user.email, fullName: user.full_name, type: user.type } }), { status: 200 });
+            return new Response(JSON.stringify({ message: "Login successful", user: { id: user.user_id, username: user.username, email: user.email, fullName: user.full_name, type: user.type } }), { status: 200, headers: headers });
         }
     }
 }

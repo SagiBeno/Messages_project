@@ -18,8 +18,10 @@ async function existingUsernameCheck(username) {
 }
 
 export default async function registrationHandler (req, res) {
+    const headers = { "Content-Type": "application/json" };
+
     if (req.method !== 'POST') {
-        return new Response(JSON.stringify({ error: "Method Not Allowed" }), { status: 405 });
+        return new Response(JSON.stringify({ error: "Method Not Allowed" }), { status: 405, headers: headers });
     } else {
         const reqBody = await req.json();
         const username = reqBody?.username;
@@ -29,21 +31,21 @@ export default async function registrationHandler (req, res) {
         const type = reqBody?.type;
         
        if (!username || !email || !password || !fullName || !type) {
-            return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+            return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400, headers: headers });
         } else {
             const existingEmail = await existingEmailCheck(email);
             const existingUsername = await existingUsernameCheck(username);
 
             if (existingEmail && existingUsername) {
-                return new Response(JSON.stringify({ error: "User with this email and username already exists" }), { status: 409 });
+                return new Response(JSON.stringify({ error: "User with this email and username already exists" }), { status: 409, headers: headers });
             }
             
             else if (existingUsername) {
-                return new Response(JSON.stringify({ error: "User with this username already exists" }), { status: 409 });
+                return new Response(JSON.stringify({ error: "User with this username already exists" }), { status: 409,  headers: headers});
             }
 
             else if (existingEmail) {
-                return new Response(JSON.stringify({ error: "User with this email already exists" }), { status: 409 });
+                return new Response(JSON.stringify({ error: "User with this email already exists" }), { status: 409, headers: headers });
             }
 
             else {
@@ -53,9 +55,9 @@ export default async function registrationHandler (req, res) {
                 try {
                     const insertQuery = 'INSERT INTO users (username, email, password_hash, full_name, type) VALUES ($1, $2, $3, $4, $5)';
                     await pool.query(insertQuery, [username, email, password_hash, fullName, type]);
-                    return new Response(JSON.stringify({ message: 'User registered successfully' }), { status: 201 });
+                    return new Response(JSON.stringify({ message: 'User registered successfully' }), { status: 201, headers: headers });
                 } catch (error) {
-                    return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
+                    return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500, headers: headers });
                 }
             }
         }
