@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={ userData.isLoggedIn ? <ChatsPage /> : <LoginPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} userData={userData} setUserData={setUserData} /> } />
+        <Route path='/' element={ userData.isLoggedIn ? <ChatsPage loading={loading} setLoading={setLoading} /> : <LoginPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} userData={userData} setUserData={setUserData} /> } />
         { !userData.isLoggedIn && <Route path='/register' element={<RegisterPage loading={loading} setLoading={setLoading} toastData={toastData} setToastData={setToastData} />} /> }
       </Routes>
 
