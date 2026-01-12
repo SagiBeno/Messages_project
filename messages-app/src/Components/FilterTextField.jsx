@@ -13,7 +13,7 @@ export default function FilterTextField( { handleSearch, placeholder } ) {
             value={searchText}
             onChange={(e) => {
                 setSearchText(e.target.value);
-                handleSearch(searchText)
+                handleSearch(e.target.value)
             }}
             color="tomato"
         />
