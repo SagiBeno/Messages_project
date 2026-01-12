@@ -4,7 +4,7 @@ import ChatComponent from "../Components/ChatComponent";
 import { useState, useEffect } from "react";
 
 export default function ChatsPage( { loading, setLoading, userData, toastData, setToastData } ) {
-  
+  console.log(userData)
   const [tabsOptions, setTabsOptions] = useState(
     {
       chats: 'Csevegések',

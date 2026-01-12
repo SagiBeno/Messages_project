@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import PasswordInput from "../Components/PasswordInput";
 
-export default function LoginPage( { loading, setLoading, toastData, setToastData } ) {
+export default function LoginPage( { loading, setLoading, toastData, setToastData, setUserData } ) {
     const [inpudData, setInputData] = useState({
         emailOrUsername: "",
         password: ""
@@ -26,9 +26,9 @@ export default function LoginPage( { loading, setLoading, toastData, setToastDat
             .then(async (resJSON) => {
                 const res = await resJSON.json();
                 if (resJSON.status === 200) {
+                    setUserData(res.user);
                     setToastData( { open: true, title: 'Sikeres bejelentkezés', description: 'Sikeresen bejelentkezett a fiókjába.', isError: false } );
                     navigate('/')
-                    localStorage.setItem('userData', JSON.stringify({  ...res.user, isLoggedIn: true }));
                 } else if (resJSON.status === 401) {
                     setToastData( { open: true, title: 'Hibás adatok', description: 'Helytelen bejelentkezési adatok.', isError: true } );
                 } else {
