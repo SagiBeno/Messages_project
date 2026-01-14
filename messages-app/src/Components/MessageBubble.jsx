@@ -1,7 +1,6 @@
 import { Box, Flex, Card, Text } from "@radix-ui/themes";
 
 export default function MessageBubble({ message, currentUserId }) {
-    console.log(message)
     const isCurrentUser = message.sender_id === currentUserId;
 
     const currentUserMessageStyle = {

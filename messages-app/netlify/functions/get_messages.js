@@ -46,7 +46,7 @@ export default async function getMessages(req, res) {
         headers: headers,
     });
 
-  } catch (err) {
+    } catch (err) {
         console.error(err);
         return new Response(JSON.stringify({ error: "Server error" }), {
             status: 500,

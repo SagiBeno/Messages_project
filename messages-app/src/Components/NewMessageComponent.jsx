@@ -19,7 +19,13 @@ export default function NewMessageComponent( { newMessageContent, setNewMessageC
                     setNewMessageContent(e.target.value);
                 }}
             />
-            <IconButton variant="soft" color='tomato' onClick={handleSendMessage}>
+            <IconButton
+                variant="soft"
+                color='tomato'
+                onClick={() => {
+                    handleSendMessage(newMessageContent);
+                    setNewMessageContent('');
+            }}>
                 <PaperPlaneIcon width="20" height="20" />
             </IconButton>
 

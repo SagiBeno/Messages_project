@@ -8,15 +8,10 @@ export default function ChatComponent({ loading, selectedChat, newMessageContent
 
     const selectedFriend_id = selectedFriend?.user_id;
     const selectedFriend_fullName = selectedFriend?.full_name;
-    console.log(selectedChat)
 
     return (
         <Box className="chatComponent">
             <Box style={{ height: "100%" }} className="chatCards">
-                
-                
-                
-                
                 
                 {
                     (selectedFriend_id && selectedFriend_fullName && !loading)
