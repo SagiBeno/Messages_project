@@ -31,9 +31,8 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
     }
 
     return (
-        <Flex direction="column" style={{ height: "100%" }}>
-            <Box style={{ flex: 1, overflow: "hidden" }} m='5'>
-                <Card style={{ height: "100%", borderRadius: 0, minWidth: '300px' }}>
+            <Box style={{ overflow: "hidden", height: "100%", minWidth: '300px'}} >
+                <Card style={{ height: "100%", borderRadius: 0, }}>
                     <Flex direction="column" style={{ height: "100%" }} gap="3">
                         <Flex
                             direction="row"
@@ -160,7 +159,6 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                     </Flex>
                 </Card>
             </Box>
-        </Flex>
 
     );
 }

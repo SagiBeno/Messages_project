@@ -16,6 +16,29 @@
     animation: toastFadeOut 180ms ease-in;
 }
 
+.chatDataBox {
+    background: linear-gradient(45deg, rgba(181, 85, 134, 0.5), rgba(239, 101, 44, 0.5));
+    height: 50px;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 10px;
+}
+
+.chatCards {
+    display: flex !important;
+    flex-direction: column !important;
+    align-content: space-between !important;
+}
+
+.chatPage {
+    padding: 20px;
+}
+
+.chatComponent {
+    margin-left: 10px;
+}
+
 @keyframes toastSlideDown {
     from {
         opacity: 0;
@@ -36,4 +59,14 @@
         opacity: 0;
         transform: translateX(-50%) translateY(-10px);
     }
+}
+
+@media only screen and (max-width: 650px) {
+  .chatPage {
+    padding: 0px;
+  }
+
+  .chatComponent {
+    margin-left: 0px;
+  }
 }

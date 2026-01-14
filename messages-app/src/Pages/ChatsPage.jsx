@@ -164,7 +164,7 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
   }
 
   return (
-    <Flex direction="row" height="100vh" width="100vw" justify="space-between" align="center">
+    <Flex direction="row" height="100vh" width="100vw" justify="space-between" align="center" className="chatPage">
 
       <Sidebar 
         loading={loading}
