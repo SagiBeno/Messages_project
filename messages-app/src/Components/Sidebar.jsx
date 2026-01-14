@@ -9,7 +9,7 @@ import FilterTextField from "./FilterTextField";
 import { useEffect, useState } from "react";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
-export default function Sidebar({ options, activeTab, setActiveTab, incomingRequests, friends, handleSearchNewFriend, searchData, addFriend, loading, currentUserId, handleAccept }) {
+export default function Sidebar({ options, activeTab, setActiveTab, incomingRequests, friends, handleSearchNewFriend, searchData, addFriend, loading, currentUserId, handleAccept, handleSelectedChat }) {
     const [filterText, setFilterText] = useState('');
 
     const filteredFriends = friends.filter((friend) => {
@@ -104,7 +104,7 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                                                         </Text>
 
                                                         {
-                                                            filteredFriends.map((friend, idx) => (<FriendCardComponent key={idx} friend={friend} />))
+                                                            filteredFriends.map((friend, idx) => (<FriendCardComponent key={idx} friend={friend} handleSelectedChat={handleSelectedChat} />))
                                                         }
                                                     </>
                                                     :

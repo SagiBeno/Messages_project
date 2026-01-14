@@ -17,7 +17,7 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
   const [chat, setChat] = useState([]);
   const [incomingRequests, setIncomingRequests] = useState([]);
   const [friends, setFriends] = useState([]);
-  const [messageContent, setMessageContent] = useState('');
+  const [newMessageContent, setNewMessageContent] = useState('');
 
   useEffect( () => {
     if (activeTab === 'friends') {
@@ -164,8 +164,12 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
       });
   }
 
+  const handleSelectedChat = (friend) => {
+    setChat(friend)
+  }
+
   const handleSendMessage = () => {
-    console.log('handleSendMssage: ', messageContent)
+    console.log('handleSendMssage: ', newMessageContent)
   }
 
   return (
@@ -183,8 +187,9 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
         incomingRequests={incomingRequests}
         handleAccept={handleAccept}
         friends={friends}
+        handleSelectedChat={handleSelectedChat}
       />
-      <ChatComponent chat={chat} messageContent={messageContent} setMessageContent={setMessageContent} handleSendMessage={handleSendMessage} />
+      <ChatComponent chat={chat} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
       
     </Flex>
   )

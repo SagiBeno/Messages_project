@@ -3,8 +3,8 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import NewMessageComponent from "./NewMessageComponent";
 import { useState } from "react";
 
-export default function ChatComponent({ chat, messageContent, setMessageContent, handleSendMessage }) {
-
+export default function ChatComponent({ chat, newMessageContent, setNewMessageContent, handleSendMessage }) {
+    
     return (
         <Box className="chatComponent">
             <Box style={{ height: "100%" }} className="chatCards">
@@ -16,7 +16,13 @@ export default function ChatComponent({ chat, messageContent, setMessageContent,
                         </IconButton>
                     </Tooltip>
 
-                    <Avatar fallback="A" color='bronze' variant="soft" radius="full" size='2' />
+                    <Avatar 
+                        fallback=''
+                        color='bronze'
+                        variant="soft"
+                        radius="full"
+                        size='2'
+                    />
                     <Text as="p" size='3' style={{ margin: '0 auto', fontWeight: 'bold' }}>Név</Text>
                 </Box>
 
@@ -24,7 +30,7 @@ export default function ChatComponent({ chat, messageContent, setMessageContent,
 
                 </ScrollArea>
 
-                <NewMessageComponent messageContent={messageContent} setMessageContent={setMessageContent} handleSendMessage={handleSendMessage} />
+                <NewMessageComponent newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
             </Box>
         </Box>
     )
