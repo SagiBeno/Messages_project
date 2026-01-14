@@ -39,6 +39,10 @@
     margin-left: 10px;
 }
 
+#hamburgerMenuIcon {
+    display: none;
+}
+
 @keyframes toastSlideDown {
     from {
         opacity: 0;
@@ -68,5 +72,13 @@
 
   .chatComponent {
     margin-left: 0px;
+  }
+
+  #sidebar {
+    display: none !important;
+  }
+
+  #hamburgerMenuIcon {
+    display: flex;
   }
 }
