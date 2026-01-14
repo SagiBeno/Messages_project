@@ -1,4 +1,5 @@
-import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar, TextField, Spinner } from "@radix-ui/themes";
+import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar, Spinner,  } from "@radix-ui/themes";
+import { DropdownMenu } from "radix-ui";
 import TabsComponent from "./TabsComponent";
 import SearchNewFriendComponent from "./SearchNewFriendComponent";
 import SearchCard from "./SearchCard";
@@ -6,6 +7,7 @@ import IncomingRequestsCard from "./IncomingRequestsCard";
 import FriendCardComponent from "./FriendCardComponent";
 import FilterTextField from "./FilterTextField";
 import { useEffect, useState } from "react";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 export default function Sidebar({ options, activeTab, setActiveTab, incomingRequests, friends, handleSearchNewFriend, searchData, addFriend, loading, currentUserId, handleAccept }) {
     const [filterText, setFilterText] = useState('');
@@ -32,6 +34,28 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
 
     return (
         <Box style={{ overflow: "hidden", height: "100%", minWidth: '300px' }} id="sidebar" >
+            <DropdownMenu.Root>
+                            <DropdownMenu.Trigger asChild>
+                                <button className="IconButton" aria-label="Customise options">
+                                    <HamburgerMenuIcon />
+                                </button>
+                            </DropdownMenu.Trigger>
+
+                            <DropdownMenu.Portal>
+                                <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
+                                    <DropdownMenu.Item className="DropdownMenuItem">
+                                        New Tab 
+                                    </DropdownMenu.Item>
+                                    <DropdownMenu.Item className="DropdownMenuItem">
+                                        New Window 
+                                    </DropdownMenu.Item>
+                                    <DropdownMenu.Item className="DropdownMenuItem" disabled>
+                                        New Private Window
+                                    </DropdownMenu.Item>
+                                </DropdownMenu.Content>
+                            </DropdownMenu.Portal>
+                        </DropdownMenu.Root>
+
             <Card style={{ height: "100%", borderRadius: 0, }}>
                 <Flex direction="column" style={{ height: "100%" }} gap="3">
                     <Flex
@@ -46,6 +70,7 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                             alt="Mesaj icon"
                         />
                         <Heading as="h1" ml='1'>Messaj</Heading>
+                        
                     </Flex>
 
                     <TabsComponent options={options} activeTab={activeTab} setActiveTab={setActiveTab} />
