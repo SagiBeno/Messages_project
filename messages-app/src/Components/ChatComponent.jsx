@@ -1,19 +1,25 @@
-import { Box, Card, Text, ScrollArea, Avatar, IconButton, Tooltip, Flex } from "@radix-ui/themes";
+import { Box, Card, Text, ScrollArea, Avatar, IconButton, Tooltip, Flex, Spinner } from "@radix-ui/themes";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import NewMessageComponent from "./NewMessageComponent";
 import { useState } from "react";
+import MessageBubble from "./MessageBubble";
 
-export default function ChatComponent({ selectedChat, newMessageContent, setNewMessageContent, handleSendMessage, selectedFriend }) {
-    
+export default function ChatComponent({ loading, selectedChat, newMessageContent, setNewMessageContent, handleSendMessage, selectedFriend, currentUserId }) {
+
     const selectedFriend_id = selectedFriend?.user_id;
     const selectedFriend_fullName = selectedFriend?.full_name;
+    console.log(selectedChat)
 
     return (
         <Box className="chatComponent">
             <Box style={{ height: "100%" }} className="chatCards">
-
+                
+                
+                
+                
+                
                 {
-                    (selectedFriend_id && selectedFriend_fullName)
+                    (selectedFriend_id && selectedFriend_fullName && !loading)
 
                         ?
                         <>
@@ -30,20 +36,26 @@ export default function ChatComponent({ selectedChat, newMessageContent, setNewM
                             </Box>
 
                             <ScrollArea type="auto" scrollbars="vertical" mt='2'>
-
+                                {
+                                    selectedChat.length > 0 &&
+                                    selectedChat.map((message, idx) => <MessageBubble key={idx} currentUserId={currentUserId} message={message} />)
+                                }
                             </ScrollArea>
 
                             <NewMessageComponent newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
                         </>
                         :
-
-                        <Flex p="4"
-                            justify='center'
-                            direction='column'
-                            style={{ height: '100%', textAlign: 'center' }}
-                        >
-                            Válasszon egy csevegést a bal oldali sávból, vagy kezdjen egy újat!
-                        </Flex>
+                            !loading ?
+                    
+                                <Flex p="4"
+                                    justify='center'
+                                    direction='column'
+                                    style={{ height: '100%', textAlign: 'center' }}
+                                >
+                                    Válasszon egy csevegést a bal oldali sávból, vagy kezdjen egy újat!
+                                </Flex>
+                            :
+                            <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}><Spinner size='3' /></Flex>
                 }
             </Box>
         </Box>

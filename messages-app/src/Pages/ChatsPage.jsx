@@ -19,6 +19,7 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
   const [incomingRequests, setIncomingRequests] = useState([]);
   const [friends, setFriends] = useState([]);
   const [newMessageContent, setNewMessageContent] = useState('');
+  const [messageLoading, setMessageLoading] = useState(false);
 
   useEffect( () => {
     if (activeTab === 'friends') {
@@ -67,7 +68,7 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
     })
       .then( async (resJSON) => {
         const res = await resJSON.json();
-        console.log(res)
+        console.log(res);
       })
       .catch((err) => {
         console.warn(err);
@@ -143,7 +144,7 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
         const res = await resJSON.json();
       })
       .catch( (err) => {
-        console.wanr(err);
+        console.warn(err);
 
         setSearchData( prev => (
           prev.map(u => (
@@ -165,8 +166,22 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
       });
   }
 
-  const handleSelectedChat = (friend) => {
-    setSelectedFriend(friend)
+
+  const handleSelectedFriend = (friend) => {
+    setSelectedFriend(friend);
+    setMessageLoading(true);
+
+    fetch(`/api/get_messages?currentUserId=${userData.id}&selectedUserId=${friend.user_id}`)
+      .then( async (resJSON) => {
+        const res = await resJSON.json();
+        setSelectedChat(res);
+      } )
+      .catch( (err) => {
+        console.warn(err);
+        setToastData( { open: true, title: 'Lekérdezési hiba', description: 'Az adatok lekérdezése során hiba történt, kérjük próbálja meg újra.', isError: true } );
+      } )
+      .finally(() => setMessageLoading(false));
+
   }
 
   const handleSendMessage = () => {
@@ -188,9 +203,9 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
         incomingRequests={incomingRequests}
         handleAccept={handleAccept}
         friends={friends}
-        setSelectedFriend={setSelectedFriend}
+        handleSelectedFriend={handleSelectedFriend}
       />
-      <ChatComponent selectedChat={selectedChat} selectedFriend={selectedFriend} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
+      <ChatComponent loading={messageLoading} currentUserId={userData.id} selectedChat={selectedChat} selectedFriend={selectedFriend} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
       
     </Flex>
   )

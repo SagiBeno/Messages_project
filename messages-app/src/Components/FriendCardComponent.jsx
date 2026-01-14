@@ -1,9 +1,9 @@
 import { Card, Avatar, Box, Text, Flex, Button } from "@radix-ui/themes";
 
-export default function FriendCardComponent ( { friend, setSelectedFriend } ) {
+export default function FriendCardComponent ( { friend, handleSelectedFriend } ) {
     
     return (
-        <Card mb="2" style={{ userSelect: 'none', cursor: 'pointer' }} onClick={() => setSelectedFriend(friend)}>
+        <Card mb="2" style={{ userSelect: 'none', cursor: 'pointer' }} onClick={() => handleSelectedFriend(friend)}>
             <Flex gap="3" align="center" direction="row" justify='between'>
                 <Avatar
                     size="3"
