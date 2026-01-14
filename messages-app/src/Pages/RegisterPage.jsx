@@ -420,6 +420,7 @@ export default function RegisterPage( { loading, setLoading, setToastData, toast
                             userSelect: 'none',
                             cursor: 'pointer'
                         }}
+                        onClick={() => {navigate('/login')}}
                     >
                         Bejelentkezés
                     </Button>
