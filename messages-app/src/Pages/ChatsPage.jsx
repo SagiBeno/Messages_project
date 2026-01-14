@@ -14,7 +14,8 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
   );
   const [activeTab, setActiveTab] = useState("chats");
   const [searchData, setSearchData] = useState([]);
-  const [chat, setChat] = useState([]);
+  const [selectedChat, setSelectedChat] = useState({});
+  const [selectedFriend, setSelectedFriend] = useState({});
   const [incomingRequests, setIncomingRequests] = useState([]);
   const [friends, setFriends] = useState([]);
   const [newMessageContent, setNewMessageContent] = useState('');
@@ -165,7 +166,7 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
   }
 
   const handleSelectedChat = (friend) => {
-    setChat(friend)
+    setSelectedFriend(friend)
   }
 
   const handleSendMessage = () => {
@@ -187,9 +188,9 @@ export default function ChatsPage( { loading, setLoading, userData, toastData, s
         incomingRequests={incomingRequests}
         handleAccept={handleAccept}
         friends={friends}
-        handleSelectedChat={handleSelectedChat}
+        setSelectedFriend={setSelectedFriend}
       />
-      <ChatComponent chat={chat} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
+      <ChatComponent selectedChat={selectedChat} selectedFriend={selectedFriend} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
       
     </Flex>
   )
