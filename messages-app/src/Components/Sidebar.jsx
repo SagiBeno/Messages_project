@@ -1,4 +1,4 @@
-import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar, Spinner,  } from "@radix-ui/themes";
+import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar, Spinner, } from "@radix-ui/themes";
 import { DropdownMenu } from "radix-ui";
 import TabsComponent from "./TabsComponent";
 import SearchNewFriendComponent from "./SearchNewFriendComponent";
@@ -33,30 +33,8 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
     }
 
     return (
-        <Box style={{ overflow: "hidden", height: "100%", minWidth: '300px' }} id="sidebar" >
-            <DropdownMenu.Root>
-                            <DropdownMenu.Trigger asChild>
-                                <button className="IconButton" aria-label="Customise options">
-                                    <HamburgerMenuIcon />
-                                </button>
-                            </DropdownMenu.Trigger>
-
-                            <DropdownMenu.Portal>
-                                <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
-                                    <DropdownMenu.Item className="DropdownMenuItem">
-                                        New Tab 
-                                    </DropdownMenu.Item>
-                                    <DropdownMenu.Item className="DropdownMenuItem">
-                                        New Window 
-                                    </DropdownMenu.Item>
-                                    <DropdownMenu.Item className="DropdownMenuItem" disabled>
-                                        New Private Window
-                                    </DropdownMenu.Item>
-                                </DropdownMenu.Content>
-                            </DropdownMenu.Portal>
-                        </DropdownMenu.Root>
-
-            <Card style={{ height: "100%", borderRadius: 0, }}>
+        <Box id="sidebar" >
+            <Box style={{ height: "100%" }}>
                 <Flex direction="column" style={{ height: "100%" }} gap="3">
                     <Flex
                         direction="row"
@@ -70,7 +48,7 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                             alt="Mesaj icon"
                         />
                         <Heading as="h1" ml='1'>Messaj</Heading>
-                        
+
                     </Flex>
 
                     <TabsComponent options={options} activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -163,7 +141,7 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                                 }
 
                                 {
-                                    searchData.length > 0
+                                    (searchData.length > 0 && !loading)
                                         ?
                                         <Flex direction='column'>
                                             {
@@ -182,7 +160,7 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                     }
 
                 </Flex>
-            </Card>
+            </Box>
         </Box>
 
     );
