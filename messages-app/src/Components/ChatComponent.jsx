@@ -6,8 +6,8 @@ import { useState } from "react";
 export default function ChatComponent({ chat, messageContent, setMessageContent, handleSendMessage }) {
 
     return (
-        <Box style={{ overflow: "hidden", height: "100%", width: '100%' }} className="chatComponent">
-            <Card style={{ height: "100%", padding: '0px' }} className="chatCards">
+        <Box className="chatComponent">
+            <Box style={{ height: "100%" }} className="chatCards">
 
                 <Box className="chatDataBox" >
                     <Tooltip content="Csevegések">
@@ -25,7 +25,7 @@ export default function ChatComponent({ chat, messageContent, setMessageContent,
                 </ScrollArea>
 
                 <NewMessageComponent messageContent={messageContent} setMessageContent={setMessageContent} handleSendMessage={handleSendMessage} />
-            </Card>
+            </Box>
         </Box>
     )
 }
