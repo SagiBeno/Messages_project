@@ -94,7 +94,7 @@ export default function ChatComponent({ loading, selectedChat, newMessageContent
                                 direction='column'
                                 style={{ height: '100%', textAlign: 'center' }}
                             >
-                                Válasszon egy csevegést a bal oldali sávból, vagy kezdjen egy újat!
+                                Válasszon egy csevegést a bal oldali sávból.
                             </Flex>
                             :
                             <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}><Spinner size='3' /></Flex>
