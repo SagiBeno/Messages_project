@@ -41,6 +41,17 @@ export default async function getMessages(req, res) {
             [currentUserId, selectedUserId]
         );
 
+        await pool.query(
+            `
+                UPDATE messages
+                SET is_read = true
+                WHERE sender_id = $2
+                    AND receiver_id = $1
+                    AND is_read = false
+            `,
+            [currentUserId, selectedUserId]
+        )
+
     return new Response(JSON.stringify(result.rows), {
         status: 200,
         headers: headers,
