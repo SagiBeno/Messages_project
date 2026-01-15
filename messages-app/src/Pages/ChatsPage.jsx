@@ -19,6 +19,8 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
   const [friends, setFriends] = useState([]);
   const [newMessageContent, setNewMessageContent] = useState('');
   const [messageLoading, setMessageLoading] = useState(false);
+  const [showSidebarMobile, setShowSidebarMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 550);
 
   useEffect(() => {
     if (activeTab === 'friends') {
@@ -26,6 +28,12 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
       handleLoadFriend();
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 550);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const handleLoadFriend = () => {
     setLoading(true);
@@ -179,7 +187,10 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
         console.warn(err);
         setToastData({ open: true, title: 'Lekérdezési hiba', description: 'Az adatok lekérdezése során hiba történt, kérjük próbálja meg újra.', isError: true });
       })
-      .finally(() => setMessageLoading(false));
+      .finally(() => {
+        setMessageLoading(false)
+        if (isMobile) setShowSidebarMobile(false);
+      });
 
   }
 
@@ -208,41 +219,56 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
         body: message,
       }),
     })
-      .then( async (resJSON) => {
+      .then(async (resJSON) => {
         const res = await resJSON.json();
         if (resJSON.status !== 201) {
           setSelectedChat(prev => prev.filter(m => m.message_id !== message_id));
-          setToastData( { open: true, title: 'Sikertelen küldés', description: 'Az üzenet küldése során hiba lépett fel, kérjük próbálja meg újra.', isError: true } );
+          setToastData({ open: true, title: 'Sikertelen küldés', description: 'Az üzenet küldése során hiba lépett fel, kérjük próbálja meg újra.', isError: true });
         } else {
           setSelectedChat([...selectedChat, res])
         }
-      } )
-      .catch( (err) => {
+      })
+      .catch((err) => {
         console.warn(err);
-        setToastData( { open: true, title: 'Sikertelen küldés', description: 'Az üzenet küldése során hiba lépett fel, kérjük próbálja meg újra.', isError: true } );
+        setToastData({ open: true, title: 'Sikertelen küldés', description: 'Az üzenet küldése során hiba lépett fel, kérjük próbálja meg újra.', isError: true });
         setSelectedChat(prev => prev.filter(m => m.message_id !== message_id));
-      } );
+      });
   }
 
   return (
     <Flex direction="row" height="100vh" width="100vw" justify="space-between" align="center" className="chatPage">
 
-      <Sidebar
-        loading={loading}
-        options={tabsOptions}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        handleSearchNewFriend={handleSearchNewFriend}
-        searchData={searchData}
-        addFriend={handleAddFriend}
-        incomingRequests={incomingRequests}
-        handleAccept={handleAccept}
-        friends={friends}
-        handleSelectedFriend={handleSelectedFriend}
-        userData={userData}
-        setUserData={setUserData}
-      />
-      <ChatComponent loading={messageLoading} currentUserId={userData.id} selectedChat={selectedChat} selectedFriend={selectedFriend} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
+      {(!isMobile || showSidebarMobile) && (
+        <Sidebar
+          loading={loading}
+          options={tabsOptions}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          handleSearchNewFriend={handleSearchNewFriend}
+          searchData={searchData}
+          addFriend={handleAddFriend}
+          incomingRequests={incomingRequests}
+          handleAccept={handleAccept}
+          friends={friends}
+          handleSelectedFriend={handleSelectedFriend}
+          userData={userData}
+          setUserData={setUserData}
+        />
+      )}
+
+      {(!isMobile || !showSidebarMobile) && (
+        <ChatComponent
+          loading={messageLoading}
+          currentUserId={userData.id}
+          selectedChat={selectedChat}
+          selectedFriend={selectedFriend}
+          newMessageContent={newMessageContent}
+          setNewMessageContent={setNewMessageContent}
+          handleSendMessage={handleSendMessage}
+          onBack={() => setShowSidebarMobile(true)}
+          showBack={isMobile}
+        />
+      )}
 
     </Flex>
   )

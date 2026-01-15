@@ -1,10 +1,10 @@
 import { Box, Card, Text, ScrollArea, Avatar, IconButton, Tooltip, Flex, Spinner } from "@radix-ui/themes";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import NewMessageComponent from "./NewMessageComponent";
 import { useState, useRef, useEffect } from "react";
 import MessageBubble from "./MessageBubble";
 
-export default function ChatComponent({ loading, selectedChat, newMessageContent, setNewMessageContent, handleSendMessage, selectedFriend, currentUserId }) {
+export default function ChatComponent({ loading, selectedChat, newMessageContent, setNewMessageContent, handleSendMessage, selectedFriend, currentUserId, onBack, showBack }) {
 
     const bottomRef = useRef(null);
     const viweportRef = useRef(null);
@@ -48,7 +48,11 @@ export default function ChatComponent({ loading, selectedChat, newMessageContent
                         ?
                         <>
                             <Box className="chatDataBox" >
-
+                                {showBack && (
+                                    <IconButton variant="ghost" onClick={onBack} mr="2" color='tomato'>
+                                      <ChevronLeftIcon width="20px" height="20px" />
+                                    </IconButton>
+                                )}
                                 <Avatar
                                     fallback={`${selectedFriend_fullName.charAt(0)}${selectedFriend_fullName.split(' ')[1].charAt(0)}`}
                                     color='bronze'
