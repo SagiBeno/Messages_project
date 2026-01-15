@@ -235,12 +235,12 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
         handleSearchNewFriend={handleSearchNewFriend}
         searchData={searchData}
         addFriend={handleAddFriend}
-        currentUserId={userData.id}
         incomingRequests={incomingRequests}
         handleAccept={handleAccept}
         friends={friends}
         handleSelectedFriend={handleSelectedFriend}
         userData={userData}
+        setUserData={setUserData}
       />
       <ChatComponent loading={messageLoading} currentUserId={userData.id} selectedChat={selectedChat} selectedFriend={selectedFriend} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
 
