@@ -3,7 +3,7 @@ import Sidebar from "../Components/Sidebar";
 import ChatComponent from "../Components/ChatComponent";
 import { useState, useEffect } from "react";
 
-export default function ChatsPage({ loading, setLoading, userData, toastData, setToastData }) {
+export default function ChatsPage({ loading, setLoading, userData, toastData, setToastData, setUserData }) {
 
   const [tabsOptions, setTabsOptions] = useState(
     {
@@ -240,6 +240,7 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
         handleAccept={handleAccept}
         friends={friends}
         handleSelectedFriend={handleSelectedFriend}
+        userData={userData}
       />
       <ChatComponent loading={messageLoading} currentUserId={userData.id} selectedChat={selectedChat} selectedFriend={selectedFriend} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
 

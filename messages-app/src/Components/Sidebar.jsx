@@ -1,15 +1,15 @@
 import { Box, Card, Flex, Tabs, Text, ScrollArea, Heading, Avatar, Spinner, } from "@radix-ui/themes";
-import { DropdownMenu } from "radix-ui";
 import TabsComponent from "./TabsComponent";
 import SearchNewFriendComponent from "./SearchNewFriendComponent";
 import SearchCard from "./SearchCard";
 import IncomingRequestsCard from "./IncomingRequestsCard";
 import FriendCardComponent from "./FriendCardComponent";
 import FilterTextField from "./FilterTextField";
+import SidebarDropdownMenu from "./SidebarDropdownMenu";
 import { useEffect, useState } from "react";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
-export default function Sidebar({ options, activeTab, setActiveTab, incomingRequests, friends, handleSearchNewFriend, searchData, addFriend, loading, currentUserId, handleAccept, handleSelectedFriend }) {
+export default function Sidebar({ userData, options, activeTab, setActiveTab, incomingRequests, friends, handleSearchNewFriend, searchData, addFriend, loading, currentUserId, handleAccept, handleSelectedFriend }) {
     const [filterText, setFilterText] = useState('');
 
     const filteredFriends = friends.filter((friend) => {
@@ -35,21 +35,8 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
     return (
         <Box id="sidebar" >
             <Box style={{ height: "100%" }}>
+                <SidebarDropdownMenu userData={userData} />
                 <Flex direction="column" style={{ height: "100%" }} gap="3">
-                    <Flex
-                        direction="row"
-                        justify='center'
-                        align='center'
-                    >
-                        <Avatar
-                            src="icon.png"
-                            size='3'
-                            title="Mesaj icon"
-                            alt="Mesaj icon"
-                        />
-                        <Heading as="h1" ml='1'>Messaj</Heading>
-
-                    </Flex>
 
                     <TabsComponent options={options} activeTab={activeTab} setActiveTab={setActiveTab} />
 
