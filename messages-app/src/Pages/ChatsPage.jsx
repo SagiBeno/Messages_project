@@ -175,6 +175,7 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
 
 
   const handleSelectedFriend = (friend) => {
+    if (isMobile) setShowSidebarMobile(false);
     setSelectedFriend(friend);
     setMessageLoading(true);
 
@@ -189,7 +190,7 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
       })
       .finally(() => {
         setMessageLoading(false)
-        if (isMobile) setShowSidebarMobile(false);
+
       });
 
   }
