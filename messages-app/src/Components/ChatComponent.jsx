@@ -7,10 +7,10 @@ import MessageBubble from "./MessageBubble";
 export default function ChatComponent({ loading, selectedChat, newMessageContent, setNewMessageContent, handleSendMessage, selectedFriend, currentUserId, onBack, showBack }) {
 
     const bottomRef = useRef(null);
-    const viweportRef = useRef(null);
+    const viewportRef = useRef(null);
 
     const isNearBottom = () => {
-        const el = viweportRef.current;
+        const el = viewportRef.current;
         if (!el) return true;
 
         const distanceFromBottom = el.scrollHeigth - el.scrollTop - el.clientHeight;
