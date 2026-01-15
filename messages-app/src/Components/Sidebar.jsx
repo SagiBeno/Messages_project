@@ -9,7 +9,7 @@ import SidebarDropdownMenu from "./SidebarDropdownMenu";
 import { useEffect, useState } from "react";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
-export default function Sidebar({ userData, options, activeTab, setActiveTab, incomingRequests, friends, handleSearchNewFriend, searchData, addFriend, loading, currentUserId, handleAccept, handleSelectedFriend }) {
+export default function Sidebar({ userData, setUserData, options, activeTab, setActiveTab, incomingRequests, friends, handleSearchNewFriend, searchData, addFriend, loading, handleAccept, handleSelectedFriend }) {
     const [filterText, setFilterText] = useState('');
 
     const filteredFriends = friends.filter((friend) => {
@@ -35,7 +35,7 @@ export default function Sidebar({ userData, options, activeTab, setActiveTab, in
     return (
         <Box id="sidebar" >
             <Box style={{ height: "100%" }}>
-                <SidebarDropdownMenu userData={userData} />
+                <SidebarDropdownMenu userData={userData} setUserData={setUserData} />
                 <Flex direction="column" style={{ height: "100%" }} gap="3">
 
                     <TabsComponent options={options} activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -119,7 +119,7 @@ export default function Sidebar({ userData, options, activeTab, setActiveTab, in
                                     <ScrollArea type="auto" scrollbars="vertical" radius='full' style={{ height: "100%" }}>
                                         <Flex direction='column' mr='3'>
                                             {
-                                                searchData.map((user, idx) => <SearchCard key={idx} user={user} addFriend={addFriend} currentUserId={currentUserId} />)
+                                                searchData.map((user, idx) => <SearchCard key={idx} user={user} addFriend={addFriend} currentUserId={userData.id} />)
                                             }
                                         </Flex>
                                     </ScrollArea>
