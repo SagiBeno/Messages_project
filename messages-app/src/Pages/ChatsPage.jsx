@@ -11,7 +11,7 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
       search: 'Keresés'
     }
   );
-  const [activeTab, setActiveTab] = useState("chats");
+  const [activeTab, setActiveTab] = useState("friends");
   const [searchData, setSearchData] = useState([]);
   const [selectedChat, setSelectedChat] = useState({});
   const [selectedFriend, setSelectedFriend] = useState({});
