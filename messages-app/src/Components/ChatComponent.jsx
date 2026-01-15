@@ -49,14 +49,14 @@ export default function ChatComponent({ loading, selectedChat, newMessageContent
                         <>
                             <Box className="chatDataBox" >
                                 {showBack && (
-                                    <IconButton variant="ghost" onClick={onBack} mr="2" color='tomato'>
+                                    <IconButton variant="ghost" onClick={onBack} mr="2" color='crimson'>
                                       <ChevronLeftIcon width="20px" height="20px" />
                                     </IconButton>
                                 )}
                                 <Avatar
                                     fallback={`${selectedFriend_fullName.charAt(0)}${selectedFriend_fullName.split(' ')[1].charAt(0)}`}
-                                    color='bronze'
-                                    variant="soft"
+                                    color='crimson'
+                                    variant="solid"
                                     radius="full"
                                     size='2'
                                 />

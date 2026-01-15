@@ -24,7 +24,7 @@ export default function SidebarDropdownMenu( { userData, setUserData } ) {
                 <DropdownMenu.Trigger>
                     <Button variant="ghost" style={{ padding: 0 }}>
                         <Avatar
-                            color="tomato"
+                            color="crimson"
                             radius="full"
                             size="2"
                             fallback={`${userData.fullName.charAt(0)}${userData.fullName.split(' ')[1].charAt(0)}`}
