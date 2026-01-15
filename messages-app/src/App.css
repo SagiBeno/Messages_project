@@ -56,6 +56,13 @@
     box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.3);
 }
 
+.adminPage {
+    overflow: hidden;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.3);
+}
+
 @keyframes toastSlideDown {
     from {
         opacity: 0;
@@ -111,5 +118,11 @@
 
     .chatPage {
         padding: 0px;
+    }
+
+    .adminPage {
+        box-shadow: none;
+        margin: 0;
+        border-radius: 0;
     }
 }
