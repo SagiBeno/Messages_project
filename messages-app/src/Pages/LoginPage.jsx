@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container, Box, Card, TextField, Text, Avatar, Flex, Button, Spinner } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
+import { EnterIcon } from "@radix-ui/react-icons";
 
 import PasswordInput from "../Components/PasswordInput";
 
@@ -159,7 +160,7 @@ export default function LoginPage( { loading, setLoading, toastData, setToastDat
                                     }}
                                 >
                                     <Spinner loading />
-                                    Bejelentkezés
+                                    <EnterIcon width='20px' height='20px' /> Bejelentkezés
                                 </Button>
                                 :
                                 <Button
@@ -176,7 +177,7 @@ export default function LoginPage( { loading, setLoading, toastData, setToastDat
                                     color="pink"
                                     onClick={(e) => handleLogin(e)}
                                 >
-                                    Bejelentkezés
+                                    <EnterIcon width='20px' height='20px' /> Bejelentkezés
                                 </Button>
                             :
                             <Button
@@ -191,7 +192,7 @@ export default function LoginPage( { loading, setLoading, toastData, setToastDat
                                     width: '100%'
                                 }}
                             >
-                                Bejelentkezés
+                                <EnterIcon width='20px' height='20px' /> Bejelentkezés
                             </Button>
                     }
 

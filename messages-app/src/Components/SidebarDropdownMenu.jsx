@@ -1,9 +1,24 @@
-import { Flex, DropdownMenu, Button, Avatar, Text } from "@radix-ui/themes";
+import { Flex, DropdownMenu, Button, Avatar, Text, Box } from "@radix-ui/themes";
+import { useNavigate } from 'react-router-dom';
+import { ExitIcon } from "@radix-ui/react-icons";
 
-export default function SidebarDropdownMenu( {userData} ) {
+export default function SidebarDropdownMenu( { userData, setUserData } ) {
+    let navigate = useNavigate();
+
     return (
-        <Flex justify="between" align="center" px="4" py="3">
-            <Text size="5" weight="bold">Mesaj</Text>
+        <Flex direction='row' justify="between" align="center" px="4" py="3">
+            <Flex direction='row' align='center'>
+                <Avatar
+                    src="icon.png"
+                    color="tomato"
+                    radius="full"
+                    size="2"
+                    fallback='Mesaj icon'
+                    mr='1'
+                />
+                <Text size="5" weight="bold">Mesaj</Text>
+            </Flex>
+            
 
             <DropdownMenu.Root>
                 <DropdownMenu.Trigger>
@@ -30,11 +45,11 @@ export default function SidebarDropdownMenu( {userData} ) {
                         color="red"
                         onSelect={() => {
                             localStorage.removeItem("userData");
-                            //setUserData({ isLoggedIn: false });
+                            setUserData({ isLoggedIn: false });
                             navigate("/login");
                         }}
                     >
-                        Kijelentkezés
+                        <ExitIcon width='15px' height='15px' /> Kijelentkezés
                     </DropdownMenu.Item>
                 </DropdownMenu.Content>
             </DropdownMenu.Root>
