@@ -65,6 +65,7 @@
         opacity: 0;
         transform: translateX(-50%) translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
@@ -76,31 +77,41 @@
         opacity: 1;
         transform: translateX(-50%) translateY(0);
     }
+
     to {
         opacity: 0;
         transform: translateX(-50%) translateY(-10px);
     }
 }
 
-@media only screen and (max-width: 650px) {
-  .chatPage {
-    padding: 0;
-  }
+@media only screen and (max-width: 600px) {
 
-  .chatComponent {
-    margin-left: 0;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-  }
+    #sidebar {
+        min-width: 250px;
+    }
 
-  #sidebar {
-    border-radius: 0;
-    box-shadow: none;
-    border: none;
-  }
+    #hamburgerMenuIcon {
+        display: flex;
+    }
+}
 
-  #hamburgerMenuIcon {
-    display: flex;
-  }
+@media only screen and (max-width: 550px) {
+    #sidebar {
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        min-width: 250px;
+        margin: 0 !important;
+    }
+
+    .chatComponent {
+        user-select: none;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0 !important;
+    }
 }

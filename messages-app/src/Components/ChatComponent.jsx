@@ -21,7 +21,7 @@ export default function ChatComponent({ loading, selectedChat, newMessageContent
         if (!selectedFriend.user_id || loading) return;
 
         if (isNearBottom()) {
-            bottomRef.current?.scrollIntoView( {behavior: "smooth"} )
+            bottomRef.current?.scrollIntoView({ behavior: "smooth" })
         }
     }, [selectedChat, selectedFriend.user_id, loading]);
 
@@ -37,11 +37,11 @@ export default function ChatComponent({ loading, selectedChat, newMessageContent
         lastMessageIsRead = lastMessage.is_read;
         lastMessageSenderId = lastMessage.sender_id;
     }
-    
+
     return (
         <Box className="chatComponent">
             <Box style={{ height: "100%" }} className="chatCards">
-                
+
                 {
                     (selectedFriend_id && selectedFriend_fullName && !loading)
 
@@ -61,26 +61,25 @@ export default function ChatComponent({ loading, selectedChat, newMessageContent
 
                             <ScrollArea type="auto" scrollbars="vertical" mt='2'>
                                 {
-                                    selectedChat.length > 0 
-                                    ?
+                                    selectedChat.length > 0
+                                        ?
                                         <>
                                             {selectedChat.map((message, idx) => <MessageBubble key={idx} currentUserId={currentUserId} message={message} />)}
-                                            {lastMessageSenderId === currentUserId  && 
+                                            {lastMessageSenderId === currentUserId &&
                                                 <Flex justify='end' mr='4'>
-                                                    <Text as="p" size='1' style={{opacity: '0.6'}} >{lastMessageIsRead ? 'Elolvasva' : 'Kézbesítve'}</Text>
+                                                    <Text as="p" size='1' style={{ opacity: '0.6' }} >{lastMessageIsRead ? 'Elolvasva' : 'Kézbesítve'}</Text>
                                                 </Flex>
                                             }
-                                            <div ref={bottomRef}/>
+                                            <div ref={bottomRef} />
                                         </>
-                                    :
-                                    <Flex 
-                                        direction='column'
-                                        align='center'
-                                        justify='center'
-                                        height='100%'
-                                    >
-                                        Nincsenek csevegési előzmények
-                                    </Flex>
+                                        :
+                                        <Flex p="4"
+                                            justify='center'
+                                            direction='column'
+                                            style={{ height: '100%', textAlign: 'center' }}
+                                        >
+                                            Nincsenek csevegési előzmények
+                                        </Flex>
 
                                 }
                             </ScrollArea>
@@ -88,15 +87,15 @@ export default function ChatComponent({ loading, selectedChat, newMessageContent
                             <NewMessageComponent newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} handleSendMessage={handleSendMessage} />
                         </>
                         :
-                            !loading ?
-                    
-                                <Flex p="4"
-                                    justify='center'
-                                    direction='column'
-                                    style={{ height: '100%', textAlign: 'center' }}
-                                >
-                                    Válasszon egy csevegést a bal oldali sávból, vagy kezdjen egy újat!
-                                </Flex>
+                        !loading ?
+
+                            <Flex p="4"
+                                justify='center'
+                                direction='column'
+                                style={{ height: '100%', textAlign: 'center' }}
+                            >
+                                Válasszon egy csevegést a bal oldali sávból, vagy kezdjen egy újat!
+                            </Flex>
                             :
                             <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}><Spinner size='3' /></Flex>
                 }

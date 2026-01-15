@@ -54,17 +54,6 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                     <TabsComponent options={options} activeTab={activeTab} setActiveTab={setActiveTab} />
 
                     {
-                        activeTab === 'chats' &&
-                        <Box style={{ flex: 1, overflow: "hidden" }}>
-                            <ScrollArea type="auto" scrollbars="vertical" style={{ height: "100%" }}>
-                                <Box pt="2">
-                                    Csevegések
-                                </Box>
-                            </ScrollArea>
-                        </Box>
-                    }
-
-                    {
                         activeTab === 'friends' &&
                         <Box style={{ flex: 1, overflow: "hidden" }}>
                             {
@@ -73,7 +62,7 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                                     <FilterTextField handleSearch={handleFilterChange} placeholder={'Kersés az ismerősök között'} />
                                 </Box>
                             }
-                            <ScrollArea type="auto" scrollbars="vertical" radius='full' style={{ height: "100%", paddingRight: '15px' }}>
+                            <ScrollArea type="auto" scrollbars="vertical" radius='full' style={{ height: "100%" }}>
                                 {
                                     loading
                                         ?
@@ -81,7 +70,7 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                                             <Spinner size='3' />
                                         </Flex>
                                         :
-                                        <Flex direction='column'>
+                                        <Flex direction='column' mr='3'>
 
                                             {
                                                 (filteredIncomingRequests.length > 0) &&
@@ -133,15 +122,15 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                             </Box>
                             {
                                 loading &&
-                                <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}>
+                                <Flex direction='column' justify='center' align='center' style={{ height: '100%' }}>
                                     <Spinner size='3' />
                                 </Flex>
                             }
                             {
                                 (searchData.length > 0 && !loading)
                                     ?
-                                    <ScrollArea type="auto" scrollbars="vertical" radius='full' style={{ height: "100%", paddingRight: '15px' }}>
-                                        <Flex direction='column'>
+                                    <ScrollArea type="auto" scrollbars="vertical" radius='full' style={{ height: "100%" }}>
+                                        <Flex direction='column' mr='3'>
                                             {
                                                 searchData.map((user, idx) => <SearchCard key={idx} user={user} addFriend={addFriend} currentUserId={currentUserId} />)
                                             }

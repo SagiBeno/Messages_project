@@ -1,10 +1,10 @@
 import { Card, Avatar, Box, Text, Flex, Button } from "@radix-ui/themes";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { PlusIcon, TimerIcon, CheckIcon } from "@radix-ui/react-icons";
 
 export default function SearchCard( { user, currentUserId, addFriend } ) {
 
     return (
-        <Card mb='2' style={{ userSelect: 'none' }} >
+        <Card mb='2' style={{ userSelect: 'none' }} mr='1' >
             <Flex gap="3" align="center" direction="row" justify='between'>
 			    <Avatar
 			    	size="3"
@@ -30,14 +30,14 @@ export default function SearchCard( { user, currentUserId, addFriend } ) {
                             style={{ cursor: 'pointer', background: 'linear-gradient(45deg, #B55586, #EF652C)' }}
                             onClick={() => addFriend(user)}
                         >
-                            <PlusIcon height='20px' width='20px' />Felvétel
+                            <PlusIcon height='20px' width='20px' />
                         </Button> 
                     }
 
                     {
                         (user.accepted === false && user.requester_id === currentUserId) &&
                         <Button radius='full' disabled style={{ cursor: 'default', background: 'linear-gradient(45deg, #B55586, #EF652C)', color: 'white', opacity: '0.5' }}>
-                            Folyamatban
+                            <TimerIcon height='20px' width='20px' />
                         </Button> 
                     }
 
@@ -51,7 +51,7 @@ export default function SearchCard( { user, currentUserId, addFriend } ) {
                     {
                         user.accepted === true &&
                         <Button radius='full' disabled style={{ cursor: 'default', background: 'linear-gradient(45deg, #B55586, #EF652C)', color: 'white', opacity: '0.5' }} p='2' >
-                            Ismerős
+                            <CheckIcon height='20px' width='20px' />
                         </Button> 
                     }
 			    </Box>

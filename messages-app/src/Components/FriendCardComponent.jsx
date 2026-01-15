@@ -1,4 +1,5 @@
 import { Card, Avatar, Box, Text, Flex, Button } from "@radix-ui/themes";
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
 
 export default function FriendCardComponent ( { friend, handleSelectedFriend } ) {
     
@@ -25,9 +26,9 @@ export default function FriendCardComponent ( { friend, handleSelectedFriend } )
                     <Button 
                         radius='full'
                         style={{ cursor: 'pointer', background: 'linear-gradient(45deg, #B55586, #EF652C)' }}
-                        onClick={() => handleSelectedChat(friend)}
+                        onClick={() => handleSelectedFriend(friend)}
                     >
-                        Üzenet
+                        <PaperPlaneIcon width='20px' height='20px' />
                     </Button> 
                 </Box>
             </Flex>

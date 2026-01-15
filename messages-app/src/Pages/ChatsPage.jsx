@@ -7,7 +7,6 @@ export default function ChatsPage({ loading, setLoading, userData, toastData, se
 
   const [tabsOptions, setTabsOptions] = useState(
     {
-      chats: 'Csevegések',
       friends: 'Ismerősök',
       search: 'Keresés'
     }
