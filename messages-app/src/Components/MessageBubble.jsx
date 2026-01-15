@@ -6,7 +6,8 @@ export default function MessageBubble({ message, currentUserId }) {
     const currentUserMessageStyle = {
         maxWidth: "75%",
         padding: "10px 12px",
-        background: 'tomato'
+        background: 'tomato',
+        userSelect: 'text'
     }
 
     return (
@@ -15,6 +16,7 @@ export default function MessageBubble({ message, currentUserId }) {
                 style={ isCurrentUser ? currentUserMessageStyle : {
                     maxWidth: "75%",
                     padding: "10px 12px",
+                    userSelect: 'text'
                 }}
             >
                 <Text size="3">{message.body}</Text>

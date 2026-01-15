@@ -8,8 +8,7 @@ export default function SearchNewFriendComponent( { handleSearchNewFriend } ) {
     return (
         <TextField.Root
             radius="full"
-            placeholder="Ismerősök keresése"
-            m='1'
+            placeholder="Új ismerősök keresése"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             color="tomato"

@@ -128,34 +128,32 @@ export default function Sidebar({ options, activeTab, setActiveTab, incomingRequ
                     {
                         activeTab === 'search' &&
                         <Box style={{ flex: 1, overflow: "hidden" }}>
-                            <ScrollArea type="auto" scrollbars="vertical" radius='full' style={{ height: "100%", userSelect: 'none', cursor: 'default' }}>
-                                <Box pt="2" style={{ userSelect: 'none', cursor: 'default' }} mb='2'>
-                                    <SearchNewFriendComponent handleSearchNewFriend={handleSearchNewFriend} />
-                                </Box>
-
-                                {
-                                    loading &&
-                                    <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}>
-                                        <Spinner size='3' />
-                                    </Flex>
-                                }
-
-                                {
-                                    (searchData.length > 0 && !loading)
-                                        ?
+                            <Box style={{ userSelect: 'none', cursor: 'default' }} p='1' mb='2'>
+                                <SearchNewFriendComponent handleSearchNewFriend={handleSearchNewFriend} />
+                            </Box>
+                            {
+                                loading &&
+                                <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}>
+                                    <Spinner size='3' />
+                                </Flex>
+                            }
+                            {
+                                (searchData.length > 0 && !loading)
+                                    ?
+                                    <ScrollArea type="auto" scrollbars="vertical" radius='full' style={{ height: "100%", paddingRight: '15px' }}>
                                         <Flex direction='column'>
                                             {
                                                 searchData.map((user, idx) => <SearchCard key={idx} user={user} addFriend={addFriend} currentUserId={currentUserId} />)
                                             }
                                         </Flex>
-                                        :
-                                        <Flex direction='column' align='center'>
-                                            <Text as="p" style={{ opacity: '0.6', userSelect: 'none', cursor: 'default' }} mb='2'>
-                                                Nincs találat
-                                            </Text>
-                                        </Flex>
-                                }
-                            </ScrollArea>
+                                    </ScrollArea>
+                                    :
+                                    <Flex direction='column' align='center'>
+                                        <Text as="p" style={{ opacity: '0.6', userSelect: 'none', cursor: 'default' }} mb='2'>
+                                            Nincs találat
+                                        </Text>
+                                    </Flex>
+                            }
                         </Box>
                     }
 
