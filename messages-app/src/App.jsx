@@ -26,21 +26,9 @@ function App() {
     } else {
       navigate('/login')
     }
-  }, []);
 
-  useEffect(() => {
     setAppearance(getSystemAppearance());
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    console.log(getSystemAppearance())
-    const handler = () => {
-      setAppearance(mq.matches ? "dark" : "light");
-    }
-    mq.addEventListener?.("change", handler);
-
-    return () => {
-      mq.removeEventListener?.("change", handler);
-    }
-  }, [])
+  }, []);
 
   return (
     <Theme appearance={appearance}>
