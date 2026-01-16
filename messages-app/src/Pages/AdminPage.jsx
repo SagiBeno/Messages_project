@@ -2,6 +2,7 @@ import { Container, Flex, Button, Text, Box, ScrollArea } from "@radix-ui/themes
 import AdminDropdownMenu from '../Components/AdminDropdownMenu';
 import RadioButtons from "../Components/RadioButtons";
 import { useEffect, useState } from "react";
+import AdminTable from "../Components/AdminTable";
 
 export default function AdminPage( { loading, setLoading, userData, toastData, setToastData, setUserData } ) {
     const [radioOptions, setRadioOptions] = useState({
@@ -9,7 +10,7 @@ export default function AdminPage( { loading, setLoading, userData, toastData, s
         admin: 'Adminok',
         user: 'Felhasználók'
     });
-    const [radioSelectedOption, setRadioSelectedOption] = useState('user');
+    const [radioSelectedOption, setRadioSelectedOption] = useState('');
     const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
@@ -34,9 +35,9 @@ export default function AdminPage( { loading, setLoading, userData, toastData, s
 
                 <RadioButtons radioOptions={radioOptions} setRadioSelectedOption={setRadioSelectedOption} />
 
-                <ScrollArea type="auto" scrollbars="vertical" radius='full' style={{ height: "100%", padding: '20px' }} >
-                    
-                </ScrollArea>
+                {
+                    tableData.length > 0 && <AdminTable tableData={tableData} />
+                }
             </Box>
             
         </Box>
