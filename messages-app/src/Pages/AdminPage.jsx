@@ -1,8 +1,9 @@
-import { Container, Flex, Button, Text, Box, ScrollArea } from "@radix-ui/themes";
+import { Container, Flex, Button, Text, Box, ScrollArea, Spinner } from "@radix-ui/themes";
 import AdminDropdownMenu from '../Components/AdminDropdownMenu';
 import RadioButtons from "../Components/RadioButtons";
 import { useEffect, useState } from "react";
 import AdminTable from "../Components/AdminTable";
+import EditDialog from "../Components/EditDialog";
 
 export default function AdminPage( { loading, setLoading, userData, toastData, setToastData, setUserData } ) {
     const [radioOptions, setRadioOptions] = useState({
@@ -12,6 +13,12 @@ export default function AdminPage( { loading, setLoading, userData, toastData, s
     });
     const [radioSelectedOption, setRadioSelectedOption] = useState('');
     const [tableData, setTableData] = useState([]);
+    const [openEditDialog, setOpenEditDialog] = useState(false);
+    const [dialogData, setDialogData] = useState({});
+
+    const handleDeleteUser = (user) => {
+        console.log(user)
+    }
 
     useEffect(() => {
 
@@ -24,7 +31,8 @@ export default function AdminPage( { loading, setLoading, userData, toastData, s
                 })
                 .catch(() => {
                     setToastData({ open: true, title: 'Sikertelen lekérdezés', description: 'Az adatok lekérése során hiba történt, kérjük próbálja meg újra.', isError: true });
-                });
+                })
+                .finally(() => setLoading(false));
         }
     }, [radioSelectedOption]);
 
@@ -34,10 +42,27 @@ export default function AdminPage( { loading, setLoading, userData, toastData, s
                 <AdminDropdownMenu userData={userData} setUserData={setUserData}   />
 
                 <RadioButtons radioOptions={radioOptions} setRadioSelectedOption={setRadioSelectedOption} />
+                {
+                    loading &&
+                        <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}>
+                            <Spinner size='3' />
+                        </Flex>
+                }
 
                 {
-                    tableData.length > 0 && <AdminTable tableData={tableData} />
+                    tableData.length > 0 && 
+                        <AdminTable 
+                            tableData={tableData} 
+                            handleDeleteUser={handleDeleteUser}
+                            setOpenEditDialog={setOpenEditDialog} 
+                            setDialogData={setDialogData}
+                        />
                 }
+
+                {
+                    dialogData.user_id && <EditDialog open={openEditDialog} setOpen={setOpenEditDialog} user={dialogData} />
+                }
+                
             </Box>
             
         </Box>

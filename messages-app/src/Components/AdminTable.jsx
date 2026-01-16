@@ -1,7 +1,7 @@
 import { Table, ScrollArea,IconButton } from "@radix-ui/themes";
 import { TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
 
-export default function AdminTable( { tableData } ) {
+export default function AdminTable( { tableData, handleEditUser, handleDeleteUser, setOpenEditDialog, setDialogData } ) {
     return (
         <ScrollArea style={{ maxHeight: "60vh", margin: '0 auto', width: '90%', }}>
             <Table.Root>
@@ -21,9 +21,8 @@ export default function AdminTable( { tableData } ) {
                             <Table.Cell>{user.email}</Table.Cell>
                             <Table.Cell>{user.username}</Table.Cell>
                             <Table.Cell align='center'>
-                                <IconButton mr='1' color='gray' variant='soft' style={{cursor: 'pointer'}}><Pencil2Icon width='20px' height='20px' /></IconButton>
-                                <IconButton color='tomato' variant='soft' style={{cursor: 'pointer'}}><TrashIcon width='20px' height='20px' /></IconButton>
-                                 
+                                <IconButton mr='1' color='gray' variant='soft' style={{cursor: 'pointer'}} onClick={() => {setDialogData(user); setOpenEditDialog(true)}}><Pencil2Icon width='20px' height='20px' /></IconButton>
+                                <IconButton color='tomato' variant='soft' style={{cursor: 'pointer'}} onClick={() => handleDeleteUser(user)}><TrashIcon width='20px' height='20px' /></IconButton>
                             </Table.Cell>
                         </Table.Row>
                     ))}
