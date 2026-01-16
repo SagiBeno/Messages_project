@@ -81,7 +81,7 @@ export default function AdminPage({ loading, setLoading, userData, toastData, se
             <Box className="adminPage">
                 <AdminDropdownMenu userData={userData} setUserData={setUserData} />
 
-                <RadioButtons radioOptions={radioOptions} setRadioSelectedOption={setRadioSelectedOption} />
+                <RadioButtons radioOptions={radioOptions} selected={radioSelectedOption} setRadioSelectedOption={setRadioSelectedOption} />
                 {
                     loading &&
                     <Flex direction='column' justify='center' align='center' style={{ height: '90%' }}>
