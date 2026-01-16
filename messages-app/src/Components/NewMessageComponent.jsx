@@ -4,14 +4,15 @@ import { PaperPlaneIcon } from "@radix-ui/react-icons";
 
 export default function NewMessageComponent( { newMessageContent, setNewMessageContent, handleSendMessage } ) {
     return (
-        <Flex direction='row' align='center' justify='between' m="3">
+        <Flex direction='row' gap='2' align='center' justify='between' m="3" >
             <TextArea
                 radius="full"
                 color='tomato'
                 placeholder="Üzenet írása..."
                 size='1'
                 style={{
-                    width: '95%'
+                    maxHeight: "120px",
+                    flex: 1,
                 }}
                 mr='1'
                 value={newMessageContent}
@@ -22,6 +23,7 @@ export default function NewMessageComponent( { newMessageContent, setNewMessageC
             <IconButton
                 variant="soft"
                 color='tomato'
+                disabled={!newMessageContent.trim()}
                 onClick={() => {
                     handleSendMessage(newMessageContent);
                     setNewMessageContent('');
