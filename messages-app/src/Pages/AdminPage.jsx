@@ -4,16 +4,17 @@ import RadioButtons from "../Components/RadioButtons";
 import { useEffect, useState } from "react";
 import AdminTable from "../Components/AdminTable";
 import EditDialog from "../Components/EditDialog";
+import DeleteDialog from "../Components/DeleteDialog";
 
 export default function AdminPage({ loading, setLoading, userData, toastData, setToastData, setUserData }) {
     const [radioOptions, setRadioOptions] = useState({
-        newUser: 'Új felhasználó',
         admin: 'Adminok',
         user: 'Felhasználók'
     });
     const [radioSelectedOption, setRadioSelectedOption] = useState('');
     const [tableData, setTableData] = useState([]);
     const [openEditDialog, setOpenEditDialog] = useState(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [dialogData, setDialogData] = useState({});
     const [modifyPassword, setModifyPassword] = useState('');
 
@@ -37,7 +38,22 @@ export default function AdminPage({ loading, setLoading, userData, toastData, se
     }
 
     const handleDeleteUser = (user) => {
-        console.log(user)
+        fetch("/api/delete_user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ adminUserId: userData.id, targetUserId: user.user_id }),
+        })
+            .then(async (resJSON) => {
+                const res = await resJSON.json();
+                if (res.success) {
+                    setToastData({ open: true, title: 'Sikeres törlés', description: 'A törlés sikeresen megtörtént!', isError: false });
+                    handleGetData();
+                }
+                else setToastData({ open: true, title: 'Sikertelen törlés', description: 'A törlés során hiba lépett fel, kérjük próbálja meg újra', isError: true });
+            })
+            .catch(() => {
+                setToastData({ open: true, title: 'Sikertelen módosítás', description: 'A törlés során hiba lépett fel, kérjük próbálja meg újra', isError: true });
+            })
     }
 
     const handleGetData = () => {
@@ -77,14 +93,18 @@ export default function AdminPage({ loading, setLoading, userData, toastData, se
                     tableData.length > 0 &&
                     <AdminTable
                         tableData={tableData}
-                        handleDeleteUser={handleDeleteUser}
                         setOpenEditDialog={setOpenEditDialog}
+                        setOpenDeleteDialog={setOpenDeleteDialog}
                         setDialogData={setDialogData}
                     />
                 }
 
                 {
-                    dialogData.user_id && <EditDialog open={openEditDialog} setOpen={setOpenEditDialog} user={dialogData} password={modifyPassword} setPassword={setModifyPassword} handleEditUser={handleEditUser} />
+                    openEditDialog && <EditDialog open={openEditDialog} setOpen={setOpenEditDialog} user={dialogData} password={modifyPassword} setPassword={setModifyPassword} handleEditUser={handleEditUser} />
+                }
+
+                {
+                    openDeleteDialog && <DeleteDialog open={openDeleteDialog} setOpen={setOpenDeleteDialog} user={dialogData} handleDeleteUser={handleDeleteUser} />
                 }
 
             </Box>

@@ -33,7 +33,7 @@ export default async function adminSetPassword(req) {
 
         if (result.rowCount === 0) return new Response(JSON.stringify({ error: "User Not Found" }), { status: 404, headers: headers  });
 
-        return new Response(JSON.stringify({ success: true }), { status: 200, headers: headers  });;
+        return new Response(JSON.stringify({ success: true }), { status: 200, headers: headers  });
     } catch (err) {
         return new Response(
             JSON.stringify({ error: "Internal Server Error" }),
