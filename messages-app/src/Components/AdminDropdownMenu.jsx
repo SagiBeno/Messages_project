@@ -4,7 +4,6 @@ import { ExitIcon } from "@radix-ui/react-icons";
 
 export default function AdminDropdownMenu( { userData, setUserData } ) {
     let navigate = useNavigate();
-    console.log(userData)
 
     return (
         <Flex direction='row' justify="between" align="center" px="4" py="3" style={{ background: 'linear-gradient(45deg, rgba(181, 85, 134, 0.5), rgba(239, 101, 44, 0.5))' }}>
